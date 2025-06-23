@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deniz TURUL - Siber Güvenlik & Yazılım Uzmanı</title>
+    <meta name="description" content="Deniz TURUL - Siber Güvenlik, Yazılım Geliştirme, Adli Bilişim ve Siber İstihbarat uzmanı. Professional portföy sitesi.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+            overflow: hidden;
+            user-select: none;
+        }
+        .acrylic {
+            background: hsla(0, 0%, 100%, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid hsla(0, 0%, 100%, 0.2);
+        }
+        .taskbar-blur {
+            background: hsla(0, 0%, 100%, 0.8);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+        }
+        .desktop-background {
+            background: linear-gradient(135deg, hsl(207, 73%, 57%) 0%, hsl(207, 90%, 61%) 50%, hsl(207, 100%, 65%) 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 8s ease-in-out infinite;
+            position: relative;
+        }
+        .desktop-background::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+            animation: floatingOrbs 15s ease-in-out infinite;
+        }
+        .win-shadow {
+            box-shadow: 0 8px 32px hsla(207, 90%, 54%, 0.1);
+        }
+        .win-shadow-lg {
+            box-shadow: 0 16px 64px hsla(207, 90%, 54%, 0.15);
+        }
+        .glassmorphism {
+            background: hsla(0, 0%, 100%, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid hsla(0, 0%, 100%, 0.2);
+        }
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        @keyframes floatingOrbs {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            33% { transform: translateY(-20px) rotate(120deg); }
+            66% { transform: translateY(10px) rotate(240deg); }
+        }
+        @keyframes welcome {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        .animate-welcome {
+            animation: welcome 2s ease-in-out;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal.active {
+            display: flex;
+        }
+        .modal-content {
+            max-width: 90%;
+            max-height: 80%;
+            overflow-y: auto;
+            animation: modalIn 0.3s ease-out;
+        }
+        @keyframes modalIn {
+            0% { opacity: 0; transform: scale(0.9); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+        .desktop-icon {
+            cursor: pointer;
+            text-align: center;
+            transition: transform 0.2s ease;
+        }
+        .desktop-icon:hover {
+            transform: scale(1.05);
+        }
+        .progress-bar {
+            background-color: #e5e7eb;
+            border-radius: 9999px;
+            height: 8px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            transition: width 0.3s ease;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 1; }
+        }
+        .pulse-animation {
+            animation: pulse 2s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="min-h-screen desktop-background">
+    <!-- Welcome Animation -->
+    <div id="welcome" class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
+        <div class="acrylic rounded-xl p-8 text-center win-shadow-lg animate-welcome">
+            <h1 class="text-3xl font-bold text-gray-800 mb-2">Merhaba, ben Deniz TURUL</h1>
+            <p class="text-lg text-gray-600">Siber Güvenlik & Yazılım Uzmanı</p>
+        </div>
+    </div>
+
+    <!-- Desktop Icons -->
+    <div class="fixed inset-0 p-8 grid grid-cols-1 gap-6 content-start justify-items-start">
+        <div class="desktop-icon" onclick="openModal('about')">
+            <div class="w-16 h-16 mx-auto mb-2 rounded-lg bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center win-shadow">
+                <i data-lucide="user" class="text-white w-8 h-8"></i>
+            </div>
+            <span class="text-white text-sm font-medium drop-shadow-lg">Hakkımda</span>
+        </div>
+        
+        <div class="desktop-icon" onclick="openModal('projects')">
+            <div class="w-16 h-16 mx-auto mb-2 rounded-lg bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center win-shadow">
+                <i data-lucide="folder" class="text-white w-8 h-8"></i>
+            </div>
+            <span class="text-white text-sm font-medium drop-shadow-lg">Projeler</span>
+        </div>
+        
+        <div class="desktop-icon" onclick="openModal('cybersecurity')">
+            <div class="w-16 h-16 mx-auto mb-2 rounded-lg bg-gradient-to-br from-red-400 to-red-600 flex items-center justify-center win-shadow">
+                <i data-lucide="shield" class="text-white w-8 h-8"></i>
+            </div>
+            <span class="text-white text-sm font-medium drop-shadow-lg">Siber Güvenlik</span>
+        </div>
+        
+        <div class="desktop-icon" onclick="openModal('software')">
+            <div class="w-16 h-16 mx-auto mb-2 rounded-lg bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center win-shadow">
+                <i data-lucide="code" class="text-white w-8 h-8"></i>
+            </div>
+            <span class="text-white text-sm font-medium drop-shadow-lg">Yazılım Geliştirme</span>
+        </div>
+        
+        <div class="desktop-icon" onclick="openModal('contact')">
+            <div class="w-16 h-16 mx-auto mb-2 rounded-lg bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center win-shadow">
+                <i data-lucide="mail" class="text-white w-8 h-8"></i>
+            </div>
+            <span class="text-white text-sm font-medium drop-shadow-lg">İletişim</span>
+        </div>
+    </div>
+
+    <!-- QR Code Widget -->
+    <div class="fixed bottom-24 right-8 cursor-pointer pulse-animation" onclick="openModal('qr')">
+        <div class="acrylic rounded-lg p-3 hover:bg-opacity-80 transition-all duration-200 win-shadow">
+            <i data-lucide="qr-code" class="text-gray-700 w-5 h-5"></i>
+        </div>
+    </div>
+
+    <!-- Taskbar -->
+    <div class="fixed bottom-0 left-0 right-0 h-12 taskbar-blur border-t border-white border-opacity-20">
+        <div class="flex items-center justify-between h-full px-4">
+            <div class="flex items-center space-x-2">
+                <div class="w-8 h-8 rounded-sm bg-gray-700 hover:bg-gray-800 flex items-center justify-center cursor-pointer transition-colors">
+                    <i data-lucide="code-2" class="text-white w-4 h-4"></i>
+                </div>
+            </div>
+            <div class="flex items-center space-x-1">
+                <div class="w-8 h-8 rounded-sm hover:bg-white hover:bg-opacity-20 flex items-center justify-center cursor-pointer transition-colors">
+                    <i data-lucide="search" class="text-gray-700 w-4 h-4"></i>
+                </div>
+                <div class="w-8 h-8 rounded-sm hover:bg-white hover:bg-opacity-20 flex items-center justify-center cursor-pointer transition-colors">
+                    <i data-lucide="grid-3x3" class="text-gray-700 w-4 h-4"></i>
+                </div>
+            </div>
+            <div class="flex items-center space-x-3">
+                <div class="text-gray-700 text-sm font-medium text-right">
+                    <div class="font-medium" id="current-time"></div>
+                    <div class="text-xs" id="current-date"></div>
+                </div>
+                <div class="flex space-x-1">
+                    <i data-lucide="wifi" class="text-gray-700 w-4 h-4"></i>
+                    <i data-lucide="volume-2" class="text-gray-700 w-4 h-4"></i>
+                    <i data-lucide="battery" class="text-gray-700 w-4 h-4"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- About Modal -->
+    <div id="aboutModal" class="modal">
+        <div class="modal-content acrylic rounded-lg w-11/12 max-w-2xl win-shadow-lg">
+            <div class="flex items-center justify-between p-4 border-b border-white border-opacity-20">
+                <h2 class="text-lg font-semibold text-gray-800 flex items-center">
+                    <i data-lucide="user" class="mr-2 text-blue-600 w-5 h-5"></i>
+                    Hakkımda
+                </h2>
+                <button onclick="closeModal('about')" class="w-6 h-6 rounded-sm hover:bg-red-500 hover:text-white flex items-center justify-center transition-colors">
+                    <i data-lucide="x" class="w-4 h-4"></i>
+                </button>
+            </div>
+            <div class="p-6">
+                <div class="flex flex-col md:flex-row gap-6">
+                    <div class="flex-shrink-0">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&h=300" alt="Deniz TURUL" class="w-32 h-32 rounded-lg object-cover win-shadow">
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-2">Deniz TURUL</h3>
+                        <p class="text-blue-600 font-semibold mb-4">Siber Güvenlik & Yazılım Uzmanı</p>
+                        <p class="text-gray-700 mb-4">Siber Güvenlik, Yazılım Geliştirme, Adli Bilişim ve Siber İstihbarat alanlarında uzmanlaşmış deneyimli bir profesyonelim. Modern teknolojiler kullanarak güvenli ve etkili çözümler geliştiriyorum.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-blue-600 text-white rounded-full text-sm">Siber Güvenlik</span>
+                            <span class="px-3 py-1 bg-green-500 text-white rounded-full text-sm">Yazılım Geliştirme</span>
+                            <span class="px-3 py-1 bg-purple-500 text-white rounded-full text-sm">Adli Bilişim</span>
+                            <span class="px-3 py-1 bg-red-500 text-white rounded-full text-sm">Siber İstihbarat</span>
+                        </div>
+                        <div class="flex gap-3">
+                            <button class="glassmorphism border border-white/20 hover:bg-white/20 px-4 py-2 rounded-lg transition-colors">
+                                <i data-lucide="download" class="mr-2 w-4 h-4 inline"></i>
+                                CV İndir
+                            </button>
+                            <button class="glassmorphism border border-white/20 hover:bg-white/20 px-4 py-2 rounded-lg transition-colors" onclick="openModal('qr')">
+                                <i data-lucide="qr-code" class="mr-2 w-4 h-4 inline"></i>
+                                QR Kod
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Projects Modal -->
+    <div id="projectsModal" class="modal">
+        <div class="modal-content acrylic rounded-lg w-11/12 max-w-4xl win-shadow-lg">
+            <div class="flex items-center justify-between p-4 border-b border-white border-opacity-20">
+                <h2 class="text-lg font-semibold text-gray-800 flex items-center">
+                    <i data-lucide="folder" class="mr-2 text-green-600 w-5 h-5"></i>
+                    Projeler
+                </h2>
+                <button onclick="closeModal('projects')" class="w-6 h-6 rounded-sm hover:bg-red-500 hover:text-white flex items-center justify-center transition-colors">
+                    <i data-lucide="x" class="w-4 h-4"></i>
+                </button>
+            </div>
+            <div class="p-6">
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="glassmorphism rounded-lg p-4">
+                        <div class="flex items-center mb-3">
+                            <i data-lucide="shield" class="text-blue-600 w-6 h-6 mr-3"></i>
+                            <h3 class="text-lg font-semibold text-gray-800">SEALinux</h3>
+                        </div>
+                        <p class="text-gray-700 text-sm mb-3">Güvenli Linux dağıtımı geliştirme projesi. Gelişmiş güvenlik özellikleri ve penetrasyon test araçları içerir.</p>
+                        <div class="flex flex-wrap gap-1 mb-3">
+                            <span class="px-2 py-1 bg-gray-200 text-xs rounded">Linux</span>
+                            <span class="px-2 py-1 bg-gray-200 text-xs rounded">Security</span>
+                            <span class="px-2 py-1 bg-gray-200 text-xs rounded">Bash</span>
+                        </div>
+                        <button class="text-blue-600 text-sm hover:underline">Detayları Görüntüle →</button>
+                    </div>
+
+                    <div class="glassmorphism rounded-lg p-4">
+                        <div class="flex items-center mb-3">
+                            <i data-lucide="building" class="text-green-600 w-6 h-6 mr-3"></i>
+                            <h3 class="text-lg font-semibold text-gray-800">Otel Navigasyon Sistemi</h3>
+                        </div>
+                        <p class="text-gray-700 text-sm mb-3">İç mekan navigasyonu için akıllı yönlendirme sistemi. QR kod tabanlı konum belirleme teknolojisi.</p>
+                        <div class="flex flex-wrap gap-1 mb-3">
+                            <span class="px-2 py-1 bg-gray-200 text-xs rounded">Python</span>
+                            <span class="px-2 py-1 bg-gray-200 text-xs rounded">OpenCV</span>
+                            <span class="px-2 py-1 bg-gray-200 text-xs rounded">AI</span>
+                        </div>
+                        <button class="text-blue-600 text-sm hover:underline">Detayları Görüntüle →</button>
+                    </div>
+
+                    <div class="glassmorphism rounded-lg p-4">
+                        <div class="flex items-center mb-3">
+                            <i data-lucide="terminal" class="text-purple-600 w-6 h-6 mr-3"></i>
+                            <h3 class="text-lg font-semibold text-gray-800">Siber Güvenlik CLI Aracı</h3>
+                        </div>
+                        <p class="text-gray-700 text-sm mb-3">Komut satırı tabanlı güvenlik analiz aracı. Port tarama, zafiyet tespiti ve raporlama özellikleri.</p>
+                        <div class="flex flex-wrap gap-1 mb-3">
+                            <span class="px-2 py-1 bg-gray-200 text-xs rounded">Python</span>
+                            <span class="px-2 py-1 bg-gray-200 text-xs rounded">Nmap</span>
+                            <span class="px-2 py-1 bg-gray-200 text-xs rounded">CLI</span>
+                        </div>
+                        <button class="text-blue-600 text-sm hover:underline">Detayları Görüntüle →</button>
+                    </div>
+
+                    <div class="glassmorphism rounded-lg p-4">
+                        <div class="flex items-center mb-3">
+                            <i data-lucide="brain" class="text-orange-600 w-6 h-6 mr-3"></i>
+                            <h3 class="text-lg font-semibold text-gray-800">Yapay Zeka Görüntü/Metin İşleme</h3>
+                        </div>
+                        <p class="text-gray-700 text-sm mb-3">Machine learning tabanlı görüntü ve metin analizi uygulaması. PyTorch ve OpenCV kullanımı.</p>
+                        <div class="flex flex-wrap gap-1 mb-3">
+                            <span class="px-2 py-1 bg-gray-200 text-xs rounded">PyTorch</span>
+                            <span class="px-2 py-1 bg-gray-200 text-xs rounded">OpenCV</span>
+                            <span class="px-2 py-1 bg-gray-200 text-xs rounded">ML</span>
+                        </div>
+                        <button class="text-blue-600 text-sm hover:underline">Detayları Görüntüle →</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cybersecurity Modal -->
+    <div id="cybersecurityModal" class="modal">
+        <div class="modal-content acrylic rounded-lg w-11/12 max-w-4xl win-shadow-lg">
+            <div class="flex items-center justify-between p-4 border-b border-white border-opacity-20">
+                <h2 class="text-lg font-semibold text-gray-800 flex items-center">
+                    <i data-lucide="shield" class="mr-2 text-red-600 w-5 h-5"></i>
+                    Siber Güvenlik
+                </h2>
+                <button onclick="closeModal('cybersecurity')" class="w-6 h-6 rounded-sm hover:bg-red-500 hover:text-white flex items-center justify-center transition-colors">
+                    <i data-lucide="x" class="w-4 h-4"></i>
+                </button>
+            </div>
+            <div class="p-6">
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">Uzmanlık Alanları</h3>
+                        <div class="space-y-3">
+                            <div class="flex items-center p-3 glassmorphism rounded-lg">
+                                <i data-lucide="bug" class="text-red-500 mr-3 w-5 h-5"></i>
+                                <div>
+                                    <h4 class="font-medium text-gray-800">Penetration Testing</h4>
+                                    <p class="text-sm text-gray-700">Güvenlik açığı tespiti ve sızma testleri</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center p-3 glassmorphism rounded-lg">
+                                <i data-lucide="search" class="text-blue-500 mr-3 w-5 h-5"></i>
+                                <div>
+                                    <h4 class="font-medium text-gray-800">Adli Bilişim</h4>
+                                    <p class="text-sm text-gray-700">Dijital kanıt toplama ve analizi</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center p-3 glassmorphism rounded-lg">
+                                <i data-lucide="eye" class="text-purple-500 mr-3 w-5 h-5"></i>
+                                <div>
+                                    <h4 class="font-medium text-gray-800">OSINT</h4>
+                                    <p class="text-sm text-gray-700">Açık kaynak istihbarat toplama</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center p-3 glassmorphism rounded-lg">
+                                <i data-lucide="code" class="text-orange-500 mr-3 w-5 h-5"></i>
+                                <div>
+                                    <h4 class="font-medium text-gray-800">Web Güvenliği</h4>
+                                    <p class="text-sm text-gray-700">XSS, LFI/RFI, SQL Injection testleri</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">Kullanılan Araçlar</h3>
+                        <div class="grid grid-cols-2 gap-2">
+                            <div class="glassmorphism p-2 text-center rounded">
+                                <div class="text-2xl mb-1">🌐</div>
+                                <p class="text-sm font-medium">Nmap</p>
+                            </div>
+                            <div class="glassmorphism p-2 text-center rounded">
+                                <div class="text-2xl mb-1">📡</div>
+                                <p class="text-sm font-medium">Wireshark</p>
+                            </div>
+                            <div class="glassmorphism p-2 text-center rounded">
+                                <div class="text-2xl mb-1">⚡</div>
+                                <p class="text-sm font-medium">Metasploit</p>
+                            </div>
+                            <div class="glassmorphism p-2 text-center rounded">
+                                <div class="text-2xl mb-1">🔍</div>
+                                <p class="text-sm font-medium">Burp Suite</p>
+                            </div>
+                        </div>
+                        
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4 mt-6">Sertifikalar</h3>
+                        <div class="space-y-2">
+                            <div class="glassmorphism p-2 rounded text-sm">
+                                <i data-lucide="award" class="text-blue-600 mr-2 w-4 h-4 inline"></i>
+                                Certified Ethical Hacker (CEH)
+                            </div>
+                            <div class="glassmorphism p-2 rounded text-sm">
+                                <i data-lucide="award" class="text-blue-600 mr-2 w-4 h-4 inline"></i>
+                                OSCP - Offensive Security
+                            </div>
+                            <div class="glassmorphism p-2 rounded text-sm">
+                                <i data-lucide="award" class="text-blue-600 mr-2 w-4 h-4 inline"></i>
+                                CompTIA Security+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Software Modal -->
+    <div id="softwareModal" class="modal">
+        <div class="modal-content acrylic rounded-lg w-11/12 max-w-4xl win-shadow-lg">
+            <div class="flex items-center justify-between p-4 border-b border-white border-opacity-20">
+                <h2 class="text-lg font-semibold text-gray-800 flex items-center">
+                    <i data-lucide="code" class="mr-2 text-purple-600 w-5 h-5"></i>
+                    Yazılım Geliştirme
+                </h2>
+                <button onclick="closeModal('software')" class="w-6 h-6 rounded-sm hover:bg-red-500 hover:text-white flex items-center justify-center transition-colors">
+                    <i data-lucide="x" class="w-4 h-4"></i>
+                </button>
+            </div>
+            <div class="p-6">
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">Programlama Dilleri</h3>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div class="glassmorphism p-3 text-center rounded-lg">
+                                <div class="text-3xl text-blue-600 mb-2">🐍</div>
+                                <p class="font-medium">Python</p>
+                                <div class="progress-bar mt-2">
+                                    <div class="progress-fill bg-blue-600" style="width: 95%"></div>
+                                </div>
+                            </div>
+                            <div class="glassmorphism p-3 text-center rounded-lg">
+                                <div class="text-3xl text-blue-800 mb-2">⚡</div>
+                                <p class="font-medium">C++</p>
+                                <div class="progress-bar mt-2">
+                                    <div class="progress-fill bg-blue-800" style="width: 85%"></div>
+                                </div>
+                            </div>
+                            <div class="glassmorphism p-3 text-center rounded-lg">
+                                <div class="text-3xl text-orange-600 mb-2">📊</div>
+                                <p class="font-medium">MATLAB</p>
+                                <div class="progress-bar mt-2">
+                                    <div class="progress-fill bg-orange-600" style="width: 80%"></div>
+                                </div>
+                            </div>
+                            <div class="glassmorphism p-3 text-center rounded-lg">
+                                <div class="text-3xl text-orange-500 mb-2">🌐</div>
+                                <p class="font-medium">Web</p>
+                                <div class="progress-bar mt-2">
+                                    <div class="progress-fill bg-orange-500" style="width: 90%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">Teknolojiler & Araçlar</h3>
+                        <div class="space-y-2">
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-2 py-1 bg-gray-200 text-xs rounded">PyTorch</span>
+                                <span class="px-2 py-1 bg-gray-200 text-xs rounded">OpenCV</span>
+                                <span class="px-2 py-1 bg-gray-200 text-xs rounded">TensorFlow</span>
+                            </div>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-2 py-1 bg-gray-200 text-xs rounded">Git</span>
+                                <span class="px-2 py-1 bg-gray-200 text-xs rounded">Linux CLI</span>
+                                <span class="px-2 py-1 bg-gray-200 text-xs rounded">Docker</span>
+                            </div>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-2 py-1 bg-gray-200 text-xs rounded">HTML/CSS</span>
+                                <span class="px-2 py-1 bg-gray-200 text-xs rounded">PHP</span>
+                                <span class="px-2 py-1 bg-gray-200 text-xs rounded">JavaScript</span>
+                            </div>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-2 py-1 bg-gray-200 text-xs rounded">C#</span>
+                                <span class="px-2 py-1 bg-gray-200 text-xs rounded">Bash</span>
+                                <span class="px-2 py-1 bg-gray-200 text-xs rounded">Postman</span>
+                            </div>
+                        </div>
+
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4 mt-6">Özel Hizmetler</h3>
+                        <div class="space-y-3">
+                            <div class="glassmorphism p-3 rounded-lg">
+                                <h4 class="font-medium text-gray-800">Kurumsal Yazılım</h4>
+                                <p class="text-sm text-gray-700">Özel iş çözümleri ve enterprise uygulamaları</p>
+                            </div>
+                            <div class="glassmorphism p-3 rounded-lg">
+                                <h4 class="font-medium text-gray-800">AI Destekli Araçlar</h4>
+                                <p class="text-sm text-gray-700">Machine learning tabanlı analiz araçları</p>
+                            </div>
+                            <div class="glassmorphism p-3 rounded-lg">
+                                <h4 class="font-medium text-gray-800">Güvenlik Otomasyon</h4>
+                                <p class="text-sm text-gray-700">Otomatik güvenlik test ve monitoring sistemleri</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Modal -->
+    <div id="contactModal" class="modal">
+        <div class="modal-content acrylic rounded-lg w-11/12 max-w-2xl win-shadow-lg">
+            <div class="flex items-center justify-between p-4 border-b border-white border-opacity-20">
+                <h2 class="text-lg font-semibold text-gray-800 flex items-center">
+                    <i data-lucide="mail" class="mr-2 text-orange-600 w-5 h-5"></i>
+                    İletişim
+                </h2>
+                <button onclick="closeModal('contact')" class="w-6 h-6 rounded-sm hover:bg-red-500 hover:text-white flex items-center justify-center transition-colors">
+                    <i data-lucide="x" class="w-4 h-4"></i>
+                </button>
+            </div>
+            <div class="p-6">
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">İletişim Bilgileri</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-center p-3 glassmorphism rounded-lg">
+                                <i data-lucide="phone" class="text-blue-600 mr-3 w-5 h-5"></i>
+                                <div>
+                                    <p class="font-medium text-gray-800">Telefon</p>
+                                    <p class="text-sm text-gray-700">+90 507 088 91 01</p>
+                                </div>
+                            </div>
+                            <button onclick="openWhatsApp()" class="w-full flex items-center p-3 glassmorphism rounded-lg hover:bg-white hover:bg-opacity-20 transition-colors">
+                                <div class="text-green-500 mr-3 text-xl">📱</div>
+                                <div class="text-left">
+                                    <p class="font-medium text-gray-800">WhatsApp</p>
+                                    <p class="text-sm text-gray-700">Hızlı mesajlaşma</p>
+                                </div>
+                            </button>
+                            <div class="flex items-center p-3 glassmorphism rounded-lg">
+                                <i data-lucide="map-pin" class="text-red-500 mr-3 w-5 h-5"></i>
+                                <div>
+                                    <p class="font-medium text-gray-800">Konum</p>
+                                    <p class="text-sm text-gray-700">Türkiye</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">Mesaj Gönder</h3>
+                        <form onsubmit="sendMessage(event)" class="space-y-4">
+                            <input type="text" id="contactName" placeholder="Adınız" class="w-full glassmorphism border border-white/20 bg-white/10 p-3 rounded-lg" required>
+                            <input type="email" id="contactEmail" placeholder="E-posta Adresiniz" class="w-full glassmorphism border border-white/20 bg-white/10 p-3 rounded-lg" required>
+                            <textarea id="contactMessage" rows="4" placeholder="Mesajınız" class="w-full glassmorphism border border-white/20 bg-white/10 p-3 rounded-lg resize-none" required></textarea>
+                            <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-lg transition-colors">
+                                <i data-lucide="send" class="mr-2 w-4 h-4 inline"></i>
+                                Mesaj Gönder
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- QR Modal -->
+    <div id="qrModal" class="modal">
+        <div class="modal-content acrylic rounded-lg w-11/12 max-w-md win-shadow-lg">
+            <div class="flex items-center justify-between p-4 border-b border-white border-opacity-20">
+                <h2 class="text-lg font-semibold text-gray-800 flex items-center">
+                    <i data-lucide="qr-code" class="mr-2 text-gray-700 w-5 h-5"></i>
+                    İletişim Bilgileri
+                </h2>
+                <button onclick="closeModal('qr')" class="w-6 h-6 rounded-sm hover:bg-red-500 hover:text-white flex items-center justify-center transition-colors">
+                    <i data-lucide="x" class="w-4 h-4"></i>
+                </button>
+            </div>
+            <div class="p-6 text-center">
+                <div class="w-48 h-48 mx-auto mb-4 bg-white rounded-lg flex items-center justify-center win-shadow">
+                    <div class="text-center">
+                        <i data-lucide="qr-code" class="text-gray-400 w-16 h-16 mb-2 mx-auto"></i>
+                        <p class="text-sm text-gray-600">QR Kod</p>
+                    </div>
+                </div>
+                <div class="text-left space-y-2 glassmorphism p-4 rounded-lg">
+                    <p><strong>Ad:</strong> Deniz TURUL</p>
+                    <p><strong>Telefon:</strong> +90 507 088 91 01</p>
+                    <p><strong>Alanlar:</strong> Siber Güvenlik, Yazılım</p>
+                    <p><strong>WhatsApp:</strong> wa.me/905070889101</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Welcome animation
+        setTimeout(() => {
+            document.getElementById('welcome').style.display = 'none';
+        }, 3000);
+
+        // Update time and date
+        function updateTime() {
+            const now = new Date();
+            const timeStr = now.toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' });
+            const dateStr = now.toLocaleDateString('tr-TR', { day: '2-digit', month: '2-digit' });
+            
+            document.getElementById('current-time').textContent = timeStr;
+            document.getElementById('current-date').textContent = dateStr;
+        }
+
+        updateTime();
+        setInterval(updateTime, 1000);
+
+        // Modal functions
+        function openModal(modalId) {
+            document.getElementById(modalId + 'Modal').classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId + 'Modal').classList.remove('active');
+        }
+
+        // WhatsApp function
+        function openWhatsApp() {
+            window.open('https://wa.me/905070889101', '_blank');
+        }
+
+        // Contact form
+        function sendMessage(event) {
+            event.preventDefault();
+            alert('Mesajınız alındı! En kısa sürede dönüş yapılacaktır.');
+            document.getElementById('contactName').value = '';
+            document.getElementById('contactEmail').value = '';
+            document.getElementById('contactMessage').value = '';
+        }
+
+        // Close modal when clicking outside
+        document.querySelectorAll('.modal').forEach(modal => {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
