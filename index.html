@@ -3,711 +3,2435 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Deniz TURUL - Siber Güvenlik & Yazılım Uzmanı</title>
-    <meta name="description" content="Deniz TURUL - Siber Güvenlik, Yazılım, Adli Bilişim ve Siber İstihbarat uzmanı.">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <title>Deniz TURUL - Siber Güvenlik Uzmanı & Yazılım Mühendisi</title>
+    <meta name="description" content="Deniz TURUL - Siber Güvenlik Uzmanı, Yazılım Mühendisi. Güvenliğin mimarisi, yazılımın ruhu.">
+    <meta name="keywords" content="siber güvenlik, yazılım mühendisi, pentest, osint, reverse engineering">
+    <meta name="author" content="Deniz TURUL">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
     <style>
-        body {
-            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
-            overflow: hidden;
-            user-select: none;
+        :root {
+            --primary-color: #00d4ff;
+            --secondary-color: #ff6b6b;
+            --accent-color: #4ecdc4;
+            --background-primary: #0a0e27;
+            --background-secondary: #1a1f3a;
+            --background-glass: rgba(255, 255, 255, 0.1);
+            --text-primary: #ffffff;
+            --text-secondary: #a0a9c0;
+            --text-accent: #00d4ff;
+            --border-glass: rgba(255, 255, 255, 0.2);
+            --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.37);
+            --blur-amount: 12px;
+        }
+
+        [data-theme="light"] {
+            --background-primary: #f5f7fa;
+            --background-secondary: #ffffff;
+            --background-glass: rgba(255, 255, 255, 0.8);
+            --text-primary: #2d3748;
+            --text-secondary: #4a5568;
+            --text-accent: #3182ce;
+            --border-glass: rgba(255, 255, 255, 0.9);
+            --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
             margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        .acrylic {
-            background: hsla(0, 0%, 100%, 0.7);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid hsla(0, 0%, 100%, 0.2);
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--background-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            transition: all 0.3s ease;
         }
 
-        .taskbar-blur {
-            background: hsla(0, 0%, 100%, 0.8);
-            backdrop-filter: blur(30px);
-            -webkit-backdrop-filter: blur(30px);
-        }
-
-        .desktop-background {
-            background: linear-gradient(135deg, hsl(207, 73%, 57%) 0%, hsl(207, 90%, 61%) 50%, hsl(207, 100%, 65%) 100%);
-            background-size: 400% 400%;
-            animation: gradientShift 8s ease-in-out infinite;
-            position: relative;
-            min-height: 100vh;
-        }
-
-        .desktop-background::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-image:
-                radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.08) 0%, transparent 50%),
-                radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
-            animation: floatingOrbs 15s ease-in-out infinite;
-        }
-
-        .win-shadow {
-            box-shadow: 0 8px 32px hsla(207, 90%, 54%, 0.1);
-        }
-
-        .win-shadow-lg {
-            box-shadow: 0 16px 64px hsla(207, 90%, 54%, 0.15);
-        }
-
-        .glassmorphism {
-            background: hsla(0, 0%, 100%, 0.1);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid hsla(0, 0%, 100%, 0.2);
-        }
-
-        @keyframes gradientShift {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-        }
-
-        @keyframes floatingOrbs {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            33% { transform: translateY(-20px) rotate(120deg); }
-            66% { transform: translateY(10px) rotate(240deg); }
-        }
-
-        @keyframes welcome {
-            0% { opacity: 0; transform: translateY(20px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
-
-        .animate-welcome {
-            animation: welcome 2s ease-in-out;
-        }
-
-        .modal {
-            display: none;
+        /* Background Animation */
+        .bg-animation {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .modal.active {
-            display: flex;
-        }
-
-        .modal-content {
-            max-width: 90%;
-            max-height: 80%;
-            overflow-y: auto;
-            animation: modalIn 0.3s ease-out;
-        }
-
-        @keyframes modalIn {
-            0% { opacity: 0; transform: scale(0.9); }
-            100% { opacity: 1; transform: scale(1); }
-        }
-
-        .desktop-icon {
-            cursor: pointer;
-            text-align: center;
-            transition: transform 0.2s ease;
-        }
-
-        .desktop-icon:hover {
-            transform: scale(1.05);
-        }
-
-        .progress-bar {
-            background-color: #e5e7eb;
-            border-radius: 9999px;
-            height: 8px;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.4;
             overflow: hidden;
         }
 
-        .progress-fill {
+        .matrix-rain {
+            position: absolute;
+            width: 100%;
             height: 100%;
-            transition: width 0.3s ease;
+        }
+
+        .matrix-column {
+            position: absolute;
+            top: -100%;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            color: var(--primary-color);
+            opacity: 0.7;
+            animation: matrixFall linear infinite;
+        }
+
+        @keyframes matrixFall {
+            to {
+                transform: translateY(100vh);
+            }
+        }
+
+        .code-fragments {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .code-fragment {
+            position: absolute;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            color: var(--accent-color);
+            opacity: 0.3;
+            animation: codeFloat 15s linear infinite;
+        }
+
+        @keyframes codeFloat {
+            0% { transform: translateX(-100px) translateY(100vh); opacity: 0; }
+            10% { opacity: 0.3; }
+            90% { opacity: 0.3; }
+            100% { transform: translateX(100vw) translateY(-100px); opacity: 0; }
+        }
+
+        .cyber-particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            opacity: 0.7;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .particle::before {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+            top: 50%;
+            left: -10px;
+            opacity: 0.3;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.7; }
+            50% { transform: translateY(-20px) rotate(180deg); opacity: 1; }
+        }
+
+        .cyber-lines {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .cyber-line {
+            position: absolute;
+            background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+            height: 1px;
+            opacity: 0.3;
+            animation: lineMove 8s linear infinite;
+        }
+
+        @keyframes lineMove {
+            0% { transform: translateX(-100%); opacity: 0; }
+            50% { opacity: 0.3; }
+            100% { transform: translateX(100vw); opacity: 0; }
+        }
+
+        .bg-grid {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 212, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 212, 255, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        /* Glass Effect */
+        .glass {
+            background: var(--background-glass);
+            backdrop-filter: blur(var(--blur-amount));
+            border: 1px solid var(--border-glass);
+            border-radius: 16px;
+            box-shadow: var(--shadow-glass);
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1rem 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            background: var(--background-glass);
+            backdrop-filter: blur(var(--blur-amount));
+            border-bottom: 1px solid var(--border-glass);
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--primary-color);
+            border-radius: 1px;
+        }
+
+        .nav-controls {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .theme-toggle, .terminal-toggle {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover, .terminal-toggle:hover {
+            color: var(--primary-color);
+            background: var(--background-glass);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0 2rem;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 5rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero .subtitle {
+            font-size: clamp(1.2rem, 3vw, 1.5rem);
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .typewriter {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: clamp(1rem, 2.5vw, 1.3rem);
+            color: var(--text-accent);
+            margin-bottom: 2rem;
+            min-height: 2em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .typewriter-text {
+            border-right: 2px solid var(--text-accent);
+            animation: blink 1s infinite;
+            padding-right: 5px;
+        }
+
+        @keyframes blink {
+            0%, 50% { border-color: var(--text-accent); }
+            51%, 100% { border-color: transparent; }
+        }
+
+
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white;
+        }
+
+        .btn-secondary {
+            background: var(--background-glass);
+            color: var(--text-primary);
+            border: 1px solid var(--border-glass);
+            backdrop-filter: blur(var(--blur-amount));
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-10px); }
+            60% { transform: translateX(-50%) translateY(-5px); }
+        }
+
+        /* Sections */
+        .section {
+            padding: 6rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--text-primary);
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            margin: 1rem auto;
+            border-radius: 2px;
+        }
+
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-image {
+            text-align: center;
+        }
+
+        .profile-img {
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 6rem;
+            color: white;
+            margin: 0 auto;
+        }
+
+        .about-text h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .about-text p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .timeline {
+            margin-top: 2rem;
+        }
+
+        .timeline-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: var(--background-glass);
+            border-radius: 12px;
+            backdrop-filter: blur(var(--blur-amount));
+            border: 1px solid var(--border-glass);
+        }
+
+        .timeline-year {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-weight: 600;
+            min-width: 80px;
+            text-align: center;
+        }
+
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-category {
+            background: var(--background-glass);
+            backdrop-filter: blur(var(--blur-amount));
+            border: 1px solid var(--border-glass);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .skill-category:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        }
+
+        .skill-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .skill-category h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .skill-tag {
+            background: var(--background-secondary);
+            color: var(--text-secondary);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            border: 1px solid var(--border-glass);
+        }
+
+        /* Projects Section */
+        .project-filters {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1.5rem;
+            background: var(--background-glass);
+            border: 1px solid var(--border-glass);
+            border-radius: 25px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(var(--blur-amount));
+        }
+
+        .filter-btn.active,
+        .filter-btn:hover {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: var(--background-glass);
+            backdrop-filter: blur(var(--blur-amount));
+            border: 1px solid var(--border-glass);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        }
+
+        .project-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .project-card p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tech-tag {
+            background: var(--background-secondary);
+            color: var(--text-accent);
+            padding: 0.2rem 0.6rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .project-link {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: color 0.3s ease;
+        }
+
+        .project-link:hover {
+            color: var(--accent-color);
+        }
+
+        /* Certifications */
+        .certs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .cert-card {
+            background: var(--background-glass);
+            backdrop-filter: blur(var(--blur-amount));
+            border: 1px solid var(--border-glass);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .cert-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        }
+
+        .cert-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .cert-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .cert-issuer {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Terminal Mode */
+        .terminal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 9999;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .terminal {
+            width: 90%;
+            max-width: 800px;
+            height: 600px;
+            background: #0a0a0a;
+            border-radius: 12px;
+            border: 2px solid var(--primary-color);
+            overflow: hidden;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .terminal-header {
+            background: var(--background-secondary);
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--primary-color);
+        }
+
+        .terminal-title {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .terminal-close {
+            background: var(--secondary-color);
+            border: none;
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .terminal-body {
+            padding: 1rem;
+            height: calc(100% - 60px);
+            overflow-y: auto;
+            background: #0a0a0a;
+        }
+
+        .terminal-output {
+            color: #00ff00;
+            margin-bottom: 1rem;
+            white-space: pre-wrap;
+            font-size: 0.9rem;
+        }
+
+        .terminal-input-line {
+            display: flex;
+            align-items: center;
+            color: var(--primary-color);
+        }
+
+        .terminal-prompt {
+            margin-right: 0.5rem;
+        }
+
+        .terminal-input {
+            background: none;
+            border: none;
+            color: #00ff00;
+            font-family: inherit;
+            font-size: 0.9rem;
+            flex: 1;
+            outline: none;
+        }
+
+        /* Blog Section */
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .blog-card {
+            background: var(--background-glass);
+            backdrop-filter: blur(var(--blur-amount));
+            border: 1px solid var(--border-glass);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        }
+
+        .blog-date {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .blog-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .blog-excerpt {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .read-more {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .read-more:hover {
+            color: var(--accent-color);
+        }
+
+        /* Contact Section */
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .contact-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            color: var(--primary-color);
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--background-glass);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            border: 1px solid var(--border-glass);
+        }
+
+        .contact-form {
+            background: var(--background-glass);
+            backdrop-filter: blur(var(--blur-amount));
+            border: 1px solid var(--border-glass);
+            border-radius: 16px;
+            padding: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            background: var(--background-secondary);
+            border: 1px solid var(--border-glass);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-family: inherit;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        /* WhatsApp Button */
+        .whatsapp-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: #25d366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.8rem;
+            text-decoration: none;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 16px rgba(37, 211, 102, 0.3);
+            animation: pulse 2s infinite;
+        }
+
+        .whatsapp-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.5);
+            animation: none;
         }
 
         @keyframes pulse {
-            0%, 100% { opacity: 0.8; }
-            50% { opacity: 1; }
+            0% { box-shadow: 0 4px 16px rgba(37, 211, 102, 0.3); }
+            50% { box-shadow: 0 4px 20px rgba(37, 211, 102, 0.6); }
+            100% { box-shadow: 0 4px 16px rgba(37, 211, 102, 0.3); }
         }
 
-        .pulse-animation {
-            animation: pulse 2s ease-in-out infinite;
+        /* Footer */
+        .footer {
+            background: var(--background-secondary);
+            padding: 3rem 2rem 2rem;
+            text-align: center;
+            border-top: 1px solid var(--border-glass);
         }
 
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-link {
+            width: 50px;
+            height: 50px;
+            background: var(--background-glass);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-glass);
+        }
+
+        .social-link:hover {
+            color: var(--primary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .footer-text {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .easter-egg {
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            cursor: pointer;
+            opacity: 0.5;
+            transition: opacity 0.3s ease;
+        }
+
+        .easter-egg:hover {
+            opacity: 1;
+            color: var(--primary-color);
+        }
+
+
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        /* Mobile Responsive */
         @media (max-width: 768px) {
-            .modal-content {
-                max-width: 95%;
+            .nav-menu {
+                display: none;
+            }
+            
+            .about-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .contact-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+            
+            .section {
+                padding: 4rem 1rem;
+            }
+            
+            .whatsapp-btn {
+                bottom: 20px;
+                right: 20px;
+            }
+            
+
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .navbar {
                 padding: 1rem;
             }
-
-            .acrylic {
-                padding: 1rem;
-            }
-
-            h1 {
-                font-size: 1.5rem;
-            }
-
-            p {
-                font-size: 1rem;
+            
+            .terminal {
+                width: 95%;
+                height: 80vh;
             }
         }
 
-        @media (prefers-reduced-motion: reduce) {
-            * {
-                animation: none !important;
-                transition: none !important;
-            }
+        /* Loading Animation */
+        .loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--background-primary);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            transition: opacity 0.5s ease;
+        }
+
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid var(--text-secondary);
+            border-top: 3px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .hidden {
+            display: none;
         }
     </style>
 </head>
-<body class="desktop-background">
-    <!-- Welcome Animation -->
-    <div id="welcome" class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
-        <div class="acrylic rounded-xl p-8 text-center win-shadow-lg animate-welcome">
-            <h1 class="text-3xl font-bold text-gray-800 mb-2">Merhaba, ben Deniz TURUL</h1>
-            <p class="text-lg text-gray-600">Siber Güvenlik & Yazılım Uzmanı</p>
-        </div>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading" id="loading">
+        <div class="loading-spinner"></div>
     </div>
 
-    <script>
-        // Hoşgeldin ekranını 3 saniye sonra kapat
-        setTimeout(() => {
-            const welcome = document.getElementById('welcome');
-            if (welcome) welcome.style.display = 'none';
-        }, 3000);
-    </script>
-</body>
-</html>
-
-
-    <!-- Desktop Icons -->
-    <div class="fixed inset-0 p-8 grid grid-cols-1 gap-6 content-start justify-items-start">
-        <div class="desktop-icon" onclick="openModal('about')">
-            <div class="w-16 h-16 mx-auto mb-2 rounded-lg bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center win-shadow">
-                <i data-lucide="user" class="text-white w-8 h-8"></i>
-            </div>
-            <span class="text-white text-sm font-medium drop-shadow-lg">Hakkımda</span>
-        </div>
-        
-        <div class="desktop-icon" onclick="openModal('projects')">
-            <div class="w-16 h-16 mx-auto mb-2 rounded-lg bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center win-shadow">
-                <i data-lucide="folder" class="text-white w-8 h-8"></i>
-            </div>
-            <span class="text-white text-sm font-medium drop-shadow-lg">Projeler</span>
-        </div>
-        
-        <div class="desktop-icon" onclick="openModal('cybersecurity')">
-            <div class="w-16 h-16 mx-auto mb-2 rounded-lg bg-gradient-to-br from-red-400 to-red-600 flex items-center justify-center win-shadow">
-                <i data-lucide="shield" class="text-white w-8 h-8"></i>
-            </div>
-            <span class="text-white text-sm font-medium drop-shadow-lg">Siber</span>
-        </div>
-        
-        <div class="desktop-icon" onclick="openModal('software')">
-            <div class="w-16 h-16 mx-auto mb-2 rounded-lg bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center win-shadow">
-                <i data-lucide="code" class="text-white w-8 h-8"></i>
-            </div>
-            <span class="text-white text-sm font-medium drop-shadow-lg">Yazılım</span>
-        </div>
-        
-        <div class="desktop-icon" onclick="openModal('contact')">
-            <div class="w-16 h-16 mx-auto mb-2 rounded-lg bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center win-shadow">
-                <i data-lucide="mail" class="text-white w-8 h-8"></i>
-            </div>
-            <span class="text-white text-sm font-medium drop-shadow-lg">İletişim</span>
-        </div>
+    <!-- Background Animation -->
+    <div class="bg-animation">
+        <div class="bg-grid"></div>
+        <div class="cyber-particles" id="cyberParticles"></div>
+        <div class="cyber-lines" id="cyberLines"></div>
+        <div class="matrix-rain" id="matrixRain"></div>
+        <div class="code-fragments" id="codeFragments"></div>
     </div>
 
-    <!-- QR Code Widget -->
-    <div class="fixed bottom-24 right-8 cursor-pointer pulse-animation" onclick="openModal('qr')">
-        <div class="acrylic rounded-lg p-3 hover:bg-opacity-80 transition-all duration-200 win-shadow">
-            <i data-lucide="qr-code" class="text-gray-700 w-5 h-5"></i>
-        </div>
-    </div>
-
-    <!-- Taskbar -->
-    <div class="fixed bottom-0 left-0 right-0 h-12 taskbar-blur border-t border-white border-opacity-20">
-        <div class="flex items-center justify-between h-full px-4">
-            <div class="flex items-center space-x-2">
-                <div class="w-8 h-8 rounded-sm bg-gray-700 hover:bg-gray-800 flex items-center justify-center cursor-pointer transition-colors">
-                    <i data-lucide="code-2" class="text-white w-4 h-4"></i>
-                </div>
-            </div>
-            <div class="flex items-center space-x-1">
-                <div class="w-8 h-8 rounded-sm hover:bg-white hover:bg-opacity-20 flex items-center justify-center cursor-pointer transition-colors">
-                    <i data-lucide="search" class="text-gray-700 w-4 h-4"></i>
-                </div>
-                <div class="w-8 h-8 rounded-sm hover:bg-white hover:bg-opacity-20 flex items-center justify-center cursor-pointer transition-colors">
-                    <i data-lucide="grid-3x3" class="text-gray-700 w-4 h-4"></i>
-                </div>
-            </div>
-            <div class="flex items-center space-x-3">
-                <div class="text-gray-700 text-sm font-medium text-right">
-                    <div class="font-medium" id="current-time"></div>
-                    <div class="text-xs" id="current-date"></div>
-                </div>
-                <div class="flex space-x-1">
-                    <i data-lucide="wifi" class="text-gray-700 w-4 h-4"></i>
-                    <i data-lucide="volume-2" class="text-gray-700 w-4 h-4"></i>
-                    <i data-lucide="battery" class="text-gray-700 w-4 h-4"></i>
-                </div>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-content">
+            <a href="#home" class="logo">
+                <i class="fas fa-shield-alt"></i>
+                Deniz TURUL
+            </a>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link active">Ana Sayfa</a></li>
+                <li><a href="#about" class="nav-link">Hakkımda</a></li>
+                <li><a href="#skills" class="nav-link">Uzmanlıklar</a></li>
+                <li><a href="#projects" class="nav-link">Projeler</a></li>
+                <li><a href="#certifications" class="nav-link">Sertifikalar</a></li>
+                <li><a href="#blog" class="nav-link">Blog</a></li>
+                <li><a href="#contact" class="nav-link">İletişim</a></li>
+            </ul>
+            <div class="nav-controls">
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="terminal-toggle" id="terminalToggle">
+                    <i class="fas fa-terminal"></i>
+                </button>
             </div>
         </div>
-    </div>
+    </nav>
 
-    <!-- About Modal -->
-    <div id="aboutModal" class="modal">
-        <div class="modal-content acrylic rounded-lg w-11/12 max-w-2xl win-shadow-lg">
-            <div class="flex items-center justify-between p-4 border-b border-white border-opacity-20">
-                <h2 class="text-lg font-semibold text-gray-800 flex items-center">
-                    <i data-lucide="user" class="mr-2 text-blue-600 w-5 h-5"></i>
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Deniz TURUL</h1>
+            <div class="typewriter">
+                <span class="typewriter-text" id="typewriter"></span>
+            </div>
+            <div class="hero-buttons">
+                <a href="#about" class="btn btn-primary">
+                    <i class="fas fa-user"></i>
                     Hakkımda
-                </h2>
-                <button onclick="closeModal('about')" class="w-6 h-6 rounded-sm hover:bg-red-500 hover:text-white flex items-center justify-center transition-colors">
-                    <i data-lucide="x" class="w-4 h-4"></i>
-                </button>
-            </div>
-            <div class="p-6">
-                <div class="flex flex-col md:flex-row gap-6">
-                    <div class="flex-shrink-0">
-                        <img src="https://images.ctfassets.net/63bmaubptoky/8e6EHyyhZoA2rEb_gcW_Wqp1UYa-QFOfol6A_hLTDo4/d07539f9788941b43e301c741bc144ce/what-is-software-CA-Capterra-Header.png?w=1500" alt="Deniz TURUL" class="w-32 h-32 rounded-lg object-cover win-shadow">
-                    </div>
-                    <div class="flex-1">
-                        <h3 class="text-2xl font-bold text-gray-800 mb-2">Deniz TURUL</h3>
-                        <p class="text-blue-600 font-semibold mb-4">Siber Güvenlik & Yazılım Uzmanı</p>
-                        <p class="text-gray-700 mb-4">Siber Güvenlik, Yazılım Geliştirme, Adli Bilişim ve Siber İstihbarat alanlarında uzmanlaşmış deneyimli bir profesyonelim. Modern teknolojiler kullanarak güvenli ve etkili çözümler geliştiriyorum.</p>
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="px-3 py-1 bg-blue-600 text-white rounded-full text-sm">Siber Güvenlik</span>
-                            <span class="px-3 py-1 bg-green-500 text-white rounded-full text-sm">Yazılım</span>
-                            <span class="px-3 py-1 bg-purple-500 text-white rounded-full text-sm">Adli Bilişim</span>
-                            <span class="px-3 py-1 bg-red-500 text-white rounded-full text-sm">Siber İstihbarat</span>
-                        </div>
-                        <div class="flex gap-3">
-                            <button class="glassmorphism border border-white/20 hover:bg-white/20 px-4 py-2 rounded-lg transition-colors">
-                                <i data-lucide="download" class="mr-2 w-4 h-4 inline"></i>
-                                CYBER
-                            </button>
-                            <button class="glassmorphism border border-white/20 hover:bg-white/20 px-4 py-2 rounded-lg transition-colors" onclick="openModal('qr')">
-                                <i data-lucide="qr-code" class="mr-2 w-4 h-4 inline"></i>
-                                SOFT
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Projects Modal -->
-    <div id="projectsModal" class="modal">
-        <div class="modal-content acrylic rounded-lg w-11/12 max-w-4xl win-shadow-lg">
-            <div class="flex items-center justify-between p-4 border-b border-white border-opacity-20">
-                <h2 class="text-lg font-semibold text-gray-800 flex items-center">
-                    <i data-lucide="folder" class="mr-2 text-green-600 w-5 h-5"></i>
-                    Projeler
-                </h2>
-                <button onclick="closeModal('projects')" class="w-6 h-6 rounded-sm hover:bg-red-500 hover:text-white flex items-center justify-center transition-colors">
-                    <i data-lucide="x" class="w-4 h-4"></i>
-                </button>
-            </div>
-            <div class="p-6">
-                <div class="grid md:grid-cols-2 gap-6">
-                    <div class="glassmorphism rounded-lg p-4">
-                        <div class="flex items-center mb-3">
-                            <i data-lucide="shield" class="text-blue-600 w-6 h-6 mr-3"></i>
-                            <h3 class="text-lg font-semibold text-gray-800">SEALinux</h3>
-                        </div>
-                        <p class="text-gray-700 text-sm mb-3">Güvenli Linux dağıtımı geliştirme projesi. Gelişmiş güvenlik özellikleri ve penetrasyon test araçları içerir.</p>
-                        <div class="flex flex-wrap gap-1 mb-3">
-                            <span class="px-2 py-1 bg-gray-200 text-xs rounded">Linux</span>
-                            <span class="px-2 py-1 bg-gray-200 text-xs rounded">Security</span>
-                            <span class="px-2 py-1 bg-gray-200 text-xs rounded">Bash</span>
-                        </div>
-                        <button class="text-blue-600 text-sm hover:underline">Detayları Görüntüle →</button>
-                    </div>
-
-                    <div class="glassmorphism rounded-lg p-4">
-                        <div class="flex items-center mb-3">
-                            <i data-lucide="building" class="text-green-600 w-6 h-6 mr-3"></i>
-                            <h3 class="text-lg font-semibold text-gray-800">Otel Navigasyon Sistemi</h3>
-                        </div>
-                        <p class="text-gray-700 text-sm mb-3">İç mekan navigasyonu için akıllı yönlendirme sistemi. QR kod tabanlı konum belirleme teknolojisi.</p>
-                        <div class="flex flex-wrap gap-1 mb-3">
-                            <span class="px-2 py-1 bg-gray-200 text-xs rounded">Python</span>
-                            <span class="px-2 py-1 bg-gray-200 text-xs rounded">OpenCV</span>
-                            <span class="px-2 py-1 bg-gray-200 text-xs rounded">AI</span>
-                        </div>
-                        <button class="text-blue-600 text-sm hover:underline">Detayları Görüntüle →</button>
-                    </div>
-
-                    <div class="glassmorphism rounded-lg p-4">
-                        <div class="flex items-center mb-3">
-                            <i data-lucide="terminal" class="text-purple-600 w-6 h-6 mr-3"></i>
-                            <h3 class="text-lg font-semibold text-gray-800">Siber Güvenlik CLI Aracı</h3>
-                        </div>
-                        <p class="text-gray-700 text-sm mb-3">Komut satırı tabanlı güvenlik analiz aracı. Port tarama, zafiyet tespiti ve raporlama özellikleri.</p>
-                        <div class="flex flex-wrap gap-1 mb-3">
-                            <span class="px-2 py-1 bg-gray-200 text-xs rounded">Python</span>
-                            <span class="px-2 py-1 bg-gray-200 text-xs rounded">Nmap</span>
-                            <span class="px-2 py-1 bg-gray-200 text-xs rounded">CLI</span>
-                        </div>
-                        <button class="text-blue-600 text-sm hover:underline">Detayları Görüntüle →</button>
-                    </div>
-
-                    <div class="glassmorphism rounded-lg p-4">
-                        <div class="flex items-center mb-3">
-                            <i data-lucide="brain" class="text-orange-600 w-6 h-6 mr-3"></i>
-                            <h3 class="text-lg font-semibold text-gray-800">Yapay Zeka Görüntü/Metin İşleme</h3>
-                        </div>
-                        <p class="text-gray-700 text-sm mb-3">Machine learning tabanlı görüntü ve metin analizi uygulaması. PyTorch ve OpenCV kullanımı.</p>
-                        <div class="flex flex-wrap gap-1 mb-3">
-                            <span class="px-2 py-1 bg-gray-200 text-xs rounded">PyTorch</span>
-                            <span class="px-2 py-1 bg-gray-200 text-xs rounded">OpenCV</span>
-                            <span class="px-2 py-1 bg-gray-200 text-xs rounded">ML</span>
-                        </div>
-                        <button class="text-blue-600 text-sm hover:underline">Detayları Görüntüle →</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Cybersecurity Modal -->
-    <div id="cybersecurityModal" class="modal">
-        <div class="modal-content acrylic rounded-lg w-11/12 max-w-4xl win-shadow-lg">
-            <div class="flex items-center justify-between p-4 border-b border-white border-opacity-20">
-                <h2 class="text-lg font-semibold text-gray-800 flex items-center">
-                    <i data-lucide="shield" class="mr-2 text-red-600 w-5 h-5"></i>
-                    Siber Güvenlik
-                </h2>
-                <button onclick="closeModal('cybersecurity')" class="w-6 h-6 rounded-sm hover:bg-red-500 hover:text-white flex items-center justify-center transition-colors">
-                    <i data-lucide="x" class="w-4 h-4"></i>
-                </button>
-            </div>
-            <div class="p-6">
-                <div class="grid md:grid-cols-2 gap-6">
-                    <div>
-                        <h3 class="text-lg font-semibold text-gray-800 mb-4">Uzmanlık Alanları</h3>
-                        <div class="space-y-3">
-                            <div class="flex items-center p-3 glassmorphism rounded-lg">
-                                <i data-lucide="bug" class="text-red-500 mr-3 w-5 h-5"></i>
-                                <div>
-                                    <h4 class="font-medium text-gray-800">Penetration Testing</h4>
-                                    <p class="text-sm text-gray-700">Güvenlik açığı tespiti ve sızma testleri</p>
-                                </div>
-                            </div>
-                            <div class="flex items-center p-3 glassmorphism rounded-lg">
-                                <i data-lucide="search" class="text-blue-500 mr-3 w-5 h-5"></i>
-                                <div>
-                                    <h4 class="font-medium text-gray-800">Adli Bilişim</h4>
-                                    <p class="text-sm text-gray-700">Dijital kanıt toplama ve analizi</p>
-                                </div>
-                            </div>
-                            <div class="flex items-center p-3 glassmorphism rounded-lg">
-                                <i data-lucide="eye" class="text-purple-500 mr-3 w-5 h-5"></i>
-                                <div>
-                                    <h4 class="font-medium text-gray-800">OSINT</h4>
-                                    <p class="text-sm text-gray-700">Açık kaynak istihbarat toplama</p>
-                                </div>
-                            </div>
-                            <div class="flex items-center p-3 glassmorphism rounded-lg">
-                                <i data-lucide="code" class="text-orange-500 mr-3 w-5 h-5"></i>
-                                <div>
-                                    <h4 class="font-medium text-gray-800">Web Güvenliği</h4>
-                                    <p class="text-sm text-gray-700">XSS, LFI/RFI, SQL Injection testleri</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <h3 class="text-lg font-semibold text-gray-800 mb-4">Kullanılan Araçlar</h3>
-                        <div class="grid grid-cols-2 gap-2">
-                            <div class="glassmorphism p-2 text-center rounded">
-                                <div class="text-2xl mb-1">🌐</div>
-                                <p class="text-sm font-medium">Nmap</p>
-                            </div>
-                            <div class="glassmorphism p-2 text-center rounded">
-                                <div class="text-2xl mb-1">📡</div>
-                                <p class="text-sm font-medium">Wireshark</p>
-                            </div>
-                            <div class="glassmorphism p-2 text-center rounded">
-                                <div class="text-2xl mb-1">⚡</div>
-                                <p class="text-sm font-medium">Metasploit</p>
-                            </div>
-                            <div class="glassmorphism p-2 text-center rounded">
-                                <div class="text-2xl mb-1">🔍</div>
-                                <p class="text-sm font-medium">Burp Suite</p>
-                            </div>
-                        </div>
-                        
-                        <h3 class="text-lg font-semibold text-gray-800 mb-4 mt-6">Sertifikalar</h3>
-                        <div class="space-y-2">
-                            <div class="glassmorphism p-2 rounded text-sm">
-                                <i data-lucide="award" class="text-blue-600 mr-2 w-4 h-4 inline"></i>
-                                Certified Ethical Hacker (CEH)
-                            </div>
-                            <div class="glassmorphism p-2 rounded text-sm">
-                                <i data-lucide="award" class="text-blue-600 mr-2 w-4 h-4 inline"></i>
-                                OSCP - Offensive Security
-                            </div>
-                            <div class="glassmorphism p-2 rounded text-sm">
-                                <i data-lucide="award" class="text-blue-600 mr-2 w-4 h-4 inline"></i>
-                                CompTIA Security+
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Software Modal -->
-    <div id="softwareModal" class="modal">
-        <div class="modal-content acrylic rounded-lg w-11/12 max-w-4xl win-shadow-lg">
-            <div class="flex items-center justify-between p-4 border-b border-white border-opacity-20">
-                <h2 class="text-lg font-semibold text-gray-800 flex items-center">
-                    <i data-lucide="code" class="mr-2 text-purple-600 w-5 h-5"></i>
-                    Yazılım Geliştirme
-                </h2>
-                <button onclick="closeModal('software')" class="w-6 h-6 rounded-sm hover:bg-red-500 hover:text-white flex items-center justify-center transition-colors">
-                    <i data-lucide="x" class="w-4 h-4"></i>
-                </button>
-            </div>
-            <div class="p-6">
-                <div class="grid md:grid-cols-2 gap-6">
-                    <div>
-                        <h3 class="text-lg font-semibold text-gray-800 mb-4">Programlama Dilleri</h3>
-                        <div class="grid grid-cols-2 gap-3">
-                            <div class="glassmorphism p-3 text-center rounded-lg">
-                                <div class="text-3xl text-blue-600 mb-2">🐍</div>
-                                <p class="font-medium">Python</p>
-                                <div class="progress-bar mt-2">
-                                    <div class="progress-fill bg-blue-600" style="width: 95%"></div>
-                                </div>
-                            </div>
-                            <div class="glassmorphism p-3 text-center rounded-lg">
-                                <div class="text-3xl text-blue-800 mb-2">⚡</div>
-                                <p class="font-medium">C++</p>
-                                <div class="progress-bar mt-2">
-                                    <div class="progress-fill bg-blue-800" style="width: 85%"></div>
-                                </div>
-                            </div>
-                            <div class="glassmorphism p-3 text-center rounded-lg">
-                                <div class="text-3xl text-orange-600 mb-2">📊</div>
-                                <p class="font-medium">MATLAB</p>
-                                <div class="progress-bar mt-2">
-                                    <div class="progress-fill bg-orange-600" style="width: 80%"></div>
-                                </div>
-                            </div>
-                            <div class="glassmorphism p-3 text-center rounded-lg">
-                                <div class="text-3xl text-orange-500 mb-2">🌐</div>
-                                <p class="font-medium">Web</p>
-                                <div class="progress-bar mt-2">
-                                    <div class="progress-fill bg-orange-500" style="width: 90%"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <h3 class="text-lg font-semibold text-gray-800 mb-4">Teknolojiler & Araçlar</h3>
-                        <div class="space-y-2">
-                            <div class="flex flex-wrap gap-2">
-                                <span class="px-2 py-1 bg-gray-200 text-xs rounded">PyTorch</span>
-                                <span class="px-2 py-1 bg-gray-200 text-xs rounded">OpenCV</span>
-                                <span class="px-2 py-1 bg-gray-200 text-xs rounded">TensorFlow</span>
-                            </div>
-                            <div class="flex flex-wrap gap-2">
-                                <span class="px-2 py-1 bg-gray-200 text-xs rounded">Git</span>
-                                <span class="px-2 py-1 bg-gray-200 text-xs rounded">Linux CLI</span>
-                                <span class="px-2 py-1 bg-gray-200 text-xs rounded">Docker</span>
-                            </div>
-                            <div class="flex flex-wrap gap-2">
-                                <span class="px-2 py-1 bg-gray-200 text-xs rounded">HTML/CSS</span>
-                                <span class="px-2 py-1 bg-gray-200 text-xs rounded">PHP</span>
-                                <span class="px-2 py-1 bg-gray-200 text-xs rounded">JavaScript</span>
-                            </div>
-                            <div class="flex flex-wrap gap-2">
-                                <span class="px-2 py-1 bg-gray-200 text-xs rounded">C#</span>
-                                <span class="px-2 py-1 bg-gray-200 text-xs rounded">Bash</span>
-                                <span class="px-2 py-1 bg-gray-200 text-xs rounded">Postman</span>
-                            </div>
-                        </div>
-
-                        <h3 class="text-lg font-semibold text-gray-800 mb-4 mt-6">Özel Hizmetler</h3>
-                        <div class="space-y-3">
-                            <div class="glassmorphism p-3 rounded-lg">
-                                <h4 class="font-medium text-gray-800">Kurumsal Yazılım</h4>
-                                <p class="text-sm text-gray-700">Özel iş çözümleri ve enterprise uygulamaları</p>
-                            </div>
-                            <div class="glassmorphism p-3 rounded-lg">
-                                <h4 class="font-medium text-gray-800">AI Destekli Araçlar</h4>
-                                <p class="text-sm text-gray-700">Machine learning tabanlı analiz araçları</p>
-                            </div>
-                            <div class="glassmorphism p-3 rounded-lg">
-                                <h4 class="font-medium text-gray-800">Güvenlik Otomasyon</h4>
-                                <p class="text-sm text-gray-700">Otomatik güvenlik test ve monitoring sistemleri</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Contact Modal -->
-    <div id="contactModal" class="modal">
-        <div class="modal-content acrylic rounded-lg w-11/12 max-w-2xl win-shadow-lg">
-            <div class="flex items-center justify-between p-4 border-b border-white border-opacity-20">
-                <h2 class="text-lg font-semibold text-gray-800 flex items-center">
-                    <i data-lucide="mail" class="mr-2 text-orange-600 w-5 h-5"></i>
+                </a>
+                <a href="#contact" class="btn btn-secondary">
+                    <i class="fas fa-envelope"></i>
                     İletişim
-                </h2>
-                <button onclick="closeModal('contact')" class="w-6 h-6 rounded-sm hover:bg-red-500 hover:text-white flex items-center justify-center transition-colors">
-                    <i data-lucide="x" class="w-4 h-4"></i>
+                </a>
+                <a href="#projects" class="btn btn-secondary">
+                    <i class="fas fa-code"></i>
+                    Projelerim
+                </a>
+                <button class="btn btn-secondary" onclick="openTerminal()">
+                    <i class="fas fa-terminal"></i>
+                    Terminal Modu
                 </button>
             </div>
-            <div class="p-6">
-                <div class="grid md:grid-cols-2 gap-6">
-                    <div>
-                        <h3 class="text-lg font-semibold text-gray-800 mb-4">İletişim Bilgileri</h3>
-                        <div class="space-y-4">
-                            <div class="flex items-center p-3 glassmorphism rounded-lg">
-                                <i data-lucide="phone" class="text-blue-600 mr-3 w-5 h-5"></i>
-                                <div>
-                                    <p class="font-medium text-gray-800">Telefon</p>
-                                    <p class="text-sm text-gray-700">+90 507 088 91 01</p>
-                                </div>
-                            </div>
-                            <button onclick="openWhatsApp()" class="w-full flex items-center p-3 glassmorphism rounded-lg hover:bg-white hover:bg-opacity-20 transition-colors">
-                                <div class="text-green-500 mr-3 text-xl">📱</div>
-                                <div class="text-left">
-                                    <p class="font-medium text-gray-800">WhatsApp</p>
-                                    <p class="text-sm text-gray-700">Hızlı mesajlaşma</p>
-                                </div>
-                            </button>
-                            <div class="flex items-center p-3 glassmorphism rounded-lg">
-                                <i data-lucide="map-pin" class="text-red-500 mr-3 w-5 h-5"></i>
-                                <div>
-                                    <p class="font-medium text-gray-800">Konum</p>
-                                    <p class="text-sm text-gray-700">Türkiye</p>
-                                </div>
-                            </div>
-                        </div>
+        </div>
+        <div class="scroll-indicator">
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section" id="about">
+        <h2 class="section-title">Hakkımda</h2>
+        <div class="about-content">
+            <div class="about-image">
+                <div class="profile-img">
+                    <i class="fas fa-user-secret"></i>
+                </div>
+            </div>
+            <div class="about-text">
+                <h3>Güvenliğin Mimarı</h3>
+                <p>
+                    Merhaba! Ben Deniz TURUL, siber güvenlik ve yazılım geliştirme alanında uzmanlaşmış, 
+                    teknolojiyi güvenlik perspektifiyle ele alan bir mühendisim. Yazılımın sadece kod olmadığına, 
+                    güvenliğin onun ruhu olduğuna inanıyorum.
+                </p>
+                <p>
+                    Siber güvenlik dünyasında OSINT, penetrasyon testleri, tersine mühendislik ve 
+                    ağ sıkılaştırma konularında expertise sahibiyim. Aynı zamanda Python, C++, React 
+                    gibi teknolojilerle güvenli yazılım çözümleri geliştiriyorum.
+                </p>
+                
+                <div class="timeline">
+                    <h4 style="color: var(--primary-color); margin-bottom: 1rem;">Kariyer Yolculuğum</h4>
+                    <div class="timeline-item">
+                        <div class="timeline-year">2020</div>
+                        <div>Yazılım mühendisliği yolculuğuna başladım</div>
                     </div>
-                    <div>
-                        <h3 class="text-lg font-semibold text-gray-800 mb-4">Mesaj Gönder</h3>
-                        <form onsubmit="sendMessage(event)" class="space-y-4">
-                            <input type="text" id="contactName" placeholder="Adınız" class="w-full glassmorphism border border-white/20 bg-white/10 p-3 rounded-lg" required>
-                            <input type="email" id="contactEmail" placeholder="E-posta Adresiniz" class="w-full glassmorphism border border-white/20 bg-white/10 p-3 rounded-lg" required>
-                            <textarea id="contactMessage" rows="4" placeholder="Mesajınız" class="w-full glassmorphism border border-white/20 bg-white/10 p-3 rounded-lg resize-none" required></textarea>
-                            <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-lg transition-colors">
-                                <i data-lucide="send" class="mr-2 w-4 h-4 inline"></i>
-                                Mesaj Gönder
-                            </button>
-                        </form>
+                    <div class="timeline-item">
+                        <div class="timeline-year">2022</div>
+                        <div>İlk siber savunma sistemimi geliştirdim</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">2024</div>
+                        <div>SEALinux işletim sistemi projesini hayata geçirdim</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">2025</div>
+                        <div>Tam kapsamlı portföy ve uzman seviye sertifikalar</div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- QR Modal -->
-    <div id="qrModal" class="modal">
-        <div class="modal-content acrylic rounded-lg w-11/12 max-w-md win-shadow-lg">
-            <div class="flex items-center justify-between p-4 border-b border-white border-opacity-20">
-                <h2 class="text-lg font-semibold text-gray-800 flex items-center">
-                    <i data-lucide="qr-code" class="mr-2 text-gray-700 w-5 h-5"></i>
-                    İletişim Bilgileri
-                </h2>
-                <button onclick="closeModal('qr')" class="w-6 h-6 rounded-sm hover:bg-red-500 hover:text-white flex items-center justify-center transition-colors">
-                    <i data-lucide="x" class="w-4 h-4"></i>
-                </button>
+    <!-- Skills Section -->
+    <section class="section" id="skills">
+        <h2 class="section-title">Uzmanlık Alanlarım</h2>
+        <div class="skills-grid">
+            <div class="skill-category">
+                <div class="skill-icon">
+                    <i class="fas fa-code"></i>
+                </div>
+                <h3>Yazılım Geliştirme</h3>
+                <p>Modern teknolojilerle güvenli ve ölçeklenebilir uygulamalar geliştiriyorum.</p>
+                <div class="skill-tags">
+                    <span class="skill-tag">Python</span>
+                    <span class="skill-tag">C++</span>
+                    <span class="skill-tag">React</span>
+                    <span class="skill-tag">SQL</span>
+                    <span class="skill-tag">Flask</span>
+                    <span class="skill-tag">Django</span>
+                </div>
             </div>
-            <div class="p-6 text-center">
-                <div class="w-48 h-48 mx-auto mb-4 bg-white rounded-lg flex items-center justify-center win-shadow">
-                    <div class="text-center">
-                        <i data-lucide="qr-code" class="text-gray-400 w-16 h-16 mb-2 mx-auto"></i>
-                        <p class="text-sm text-gray-600">QR Kod</p>
+            
+            <div class="skill-category">
+                <div class="skill-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3>Siber Güvenlik</h3>
+                <p>Sistemleri güvenlik açıklarına karşı koruma ve saldırı simülasyonları.</p>
+                <div class="skill-tags">
+                    <span class="skill-tag">OSINT</span>
+                    <span class="skill-tag">Reverse Engineering</span>
+                    <span class="skill-tag">PenTest</span>
+                    <span class="skill-tag">WAF</span>
+                    <span class="skill-tag">Network Hardening</span>
+                    <span class="skill-tag">Vulnerability Assessment</span>
+                </div>
+            </div>
+            
+            <div class="skill-category">
+                <div class="skill-icon">
+                    <i class="fas fa-globe"></i>
+                </div>
+                <h3>Web Fullstack & Geliştirme</h3>
+                <p>Modern web teknolojileri ile fullstack uygulama geliştirme.</p>
+                <div class="skill-tags">
+                    <span class="skill-tag">HTML5/CSS3</span>
+                    <span class="skill-tag">JavaScript</span>
+                    <span class="skill-tag">Node.js</span>
+                    <span class="skill-tag">Vue.js</span>
+                    <span class="skill-tag">Bootstrap</span>
+                    <span class="skill-tag">RESTful API</span>
+                    <span class="skill-tag">Web Tasarım</span>
+                </div>
+            </div>
+            
+            <div class="skill-category">
+                <div class="skill-icon">
+                    <i class="fas fa-search"></i>
+                </div>
+                <h3>Adli Bilişim & İstihbarat</h3>
+                <p>Dijital kanıtlar analizi ve siber istihbarat toplama teknikleri.</p>
+                <div class="skill-tags">
+                    <span class="skill-tag">Digital Forensics</span>
+                    <span class="skill-tag">Packet Analysis</span>
+                    <span class="skill-tag">Metadata Analysis</span>
+                    <span class="skill-tag">Log Analysis</span>
+                    <span class="skill-tag">OSINT Tools</span>
+                </div>
+            </div>
+            
+            <div class="skill-category">
+                <div class="skill-icon">
+                    <i class="fas fa-cloud"></i>
+                </div>
+                <h3>DevOps & Sistem</h3>
+                <p>Altyapı yönetimi, otomatizasyon ve güvenli deployment süreçleri.</p>
+                <div class="skill-tags">
+                    <span class="skill-tag">Linux</span>
+                    <span class="skill-tag">Docker</span>
+                    <span class="skill-tag">CI/CD</span>
+                    <span class="skill-tag">GitOps</span>
+                    <span class="skill-tag">Cloud Security</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="section" id="projects">
+        <h2 class="section-title">Projelerim</h2>
+        
+        <div class="project-filters">
+            <button class="filter-btn active" data-filter="all">Tümü</button>
+            <button class="filter-btn" data-filter="security">Güvenlik</button>
+            <button class="filter-btn" data-filter="software">Yazılım</button>
+            <button class="filter-btn" data-filter="system">Sistem</button>
+        </div>
+        
+        <div class="projects-grid">
+            <div class="project-card" data-category="system">
+                <h3>SEALinux OS</h3>
+                <p>Güvenlik odaklı özel Linux dağıtımı. Gelişmiş güvenlik özellikleri ve penetrasyon test araçları ile donatılmış özelleştirilmiş işletim sistemi.</p>
+                <div class="project-tech">
+                    <span class="tech-tag">Linux Kernel</span>
+                    <span class="tech-tag">C</span>
+                    <span class="tech-tag">Bash</span>
+                    <span class="tech-tag">Security Tools</span>
+                </div>
+                <div class="project-links">
+                    <a href="#" class="project-link" title="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="#" class="project-link" title="Demo">
+                        <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="project-card" data-category="security">
+                <h3>SEASpy: Kamera Güvenlik Testi</h3>
+                <p>IP kameraları ve güvenlik sistemlerini test etmek için geliştirilmiş kapsamlı güvenlik açığı tarama aracı.</p>
+                <div class="project-tech">
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">Nmap</span>
+                    <span class="tech-tag">OpenCV</span>
+                    <span class="tech-tag">Networking</span>
+                </div>
+                <div class="project-links">
+                    <a href="#" class="project-link" title="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="#" class="project-link" title="Detaylar">
+                        <i class="fas fa-info-circle"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="project-card" data-category="software">
+                <h3>Otel Navigasyon Sistemi</h3>
+                <p>Otellerde misafir deneyimini artırmak için geliştirilmiş interaktif navigasyon ve bilgi sistemi.</p>
+                <div class="project-tech">
+                    <span class="tech-tag">React</span>
+                    <span class="tech-tag">Node.js</span>
+                    <span class="tech-tag">MongoDB</span>
+                    <span class="tech-tag">WebSocket</span>
+                </div>
+                <div class="project-links">
+                    <a href="#" class="project-link" title="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="#" class="project-link" title="Live Demo">
+                        <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="project-card" data-category="security">
+                <h3>CyberSec Terminal</h3>
+                <p>Siber güvenlik uzmanları için geliştirilmiş kapsamlı terminal tabanlı güvenlik araçları koleksiyonu.</p>
+                <div class="project-tech">
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">Bash</span>
+                    <span class="tech-tag">Metasploit</span>
+                    <span class="tech-tag">OSINT</span>
+                </div>
+                <div class="project-links">
+                    <a href="#" class="project-link" title="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="#" class="project-link" title="Dokümantasyon">
+                        <i class="fas fa-book"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="project-card" data-category="security">
+                <h3>Takip: Fotoğraf Analiz Sistemi</h3>
+                <p>Fotoğraflardan metadata çıkarma, lokasyon tespiti ve kişi tanıma özellikleri içeren adli bilişim aracı.</p>
+                <div class="project-tech">
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">OpenCV</span>
+                    <span class="tech-tag">TensorFlow</span>
+                    <span class="tech-tag">EXIF</span>
+                </div>
+                <div class="project-links">
+                    <a href="#" class="project-link" title="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="#" class="project-link" title="Detaylar">
+                        <i class="fas fa-info-circle"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="project-card" data-category="software">
+                <h3>Güvenli API Gateway</h3>
+                <p>Mikroservis mimariler için geliştirilmiş, gelişmiş güvenlik özellikleri içeren API gateway çözümü.</p>
+                <div class="project-tech">
+                    <span class="tech-tag">Go</span>
+                    <span class="tech-tag">Redis</span>
+                    <span class="tech-tag">JWT</span>
+                    <span class="tech-tag">Docker</span>
+                </div>
+                <div class="project-links">
+                    <a href="#" class="project-link" title="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="#" class="project-link" title="Dokümantasyon">
+                        <i class="fas fa-book"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certifications Section -->
+    <section class="section" id="certifications">
+        <h2 class="section-title">Sertifikalar & Eğitimler</h2>
+        <div class="certs-grid">
+            <div class="cert-card">
+                <div class="cert-icon">
+                    <i class="fas fa-shield-virus"></i>
+                </div>
+                <h3>CEH</h3>
+                <p class="cert-issuer">Certified Ethical Hacker</p>
+                <p>EC-Council</p>
+            </div>
+            
+            <div class="cert-card">
+                <div class="cert-icon">
+                    <i class="fas fa-user-ninja"></i>
+                </div>
+                <h3>OSCP</h3>
+                <p class="cert-issuer">Offensive Security Certified Professional</p>
+                <p>Offensive Security</p>
+            </div>
+            
+            <div class="cert-card">
+                <div class="cert-icon">
+                    <i class="fas fa-network-wired"></i>
+                </div>
+                <h3>Ağ Güvenliği</h3>
+                <p class="cert-issuer">Network Security Specialist</p>
+                <p>BTK Akademi</p>
+            </div>
+            
+            <div class="cert-card">
+                <div class="cert-icon">
+                    <i class="fas fa-file-alt"></i>
+                </div>
+                <h3>Log Analizi</h3>
+                <p class="cert-issuer">Advanced Log Analysis</p>
+                <p>BTK Akademi</p>
+            </div>
+            
+            <div class="cert-card">
+                <div class="cert-icon">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                </div>
+                <h3>Cloud Security</h3>
+                <p class="cert-issuer">Cloud Security Architecture</p>
+                <p>Coursera</p>
+            </div>
+            
+            <div class="cert-card">
+                <div class="cert-icon">
+                    <i class="fas fa-bug"></i>
+                </div>
+                <h3>Malware Analysis</h3>
+                <p class="cert-issuer">Advanced Malware Analysis</p>
+                <p>Udemy</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section class="section" id="blog">
+        <h2 class="section-title">Blog & Yazılarım</h2>
+        <div class="blog-grid">
+            <article class="blog-card">
+                <div class="blog-date">15 Haziran 2025</div>
+                <h3>Zero-Day Exploit Analizi: CVE-2025-0001</h3>
+                <p class="blog-excerpt">
+                    Son zamanlarda keşfedilen kritik güvenlik açığının detaylı analizi ve korunma yöntemleri. 
+                    Saldırganların nasıl hareket ettiği ve sistem yöneticilerinin alması gereken önlemler.
+                </p>
+                <a href="#" class="read-more">
+                    Devamını Oku <i class="fas fa-arrow-right"></i>
+                </a>
+            </article>
+            
+            <article class="blog-card">
+                <div class="blog-date">10 Haziran 2025</div>
+                <h3>MITRE ATT&CK Framework ile Tehdit Avı</h3>
+                <p class="blog-excerpt">
+                    Siber saldırıları MITRE ATT&CK framework'ü kullanarak nasıl analiz edebiliriz? 
+                    Pratik örnekler ve gerçek dünya senaryoları ile threat hunting teknikleri.
+                </p>
+                <a href="#" class="read-more">
+                    Devamını Oku <i class="fas fa-arrow-right"></i>
+                </a>
+            </article>
+            
+            <article class="blog-card">
+                <div class="blog-date">5 Haziran 2025</div>
+                <h3>APT Grupları ve Yeni Nesil Tehditler</h3>
+                <p class="blog-excerpt">
+                    Advanced Persistent Threat gruplarının kullandığı yeni teknikler ve 
+                    organizasyonların bu tehditlere karşı nasıl hazırlanması gerektiği üzerine.
+                </p>
+                <a href="#" class="read-more">
+                    Devamını Oku <i class="fas fa-arrow-right"></i>
+                </a>
+            </article>
+            
+            <article class="blog-card">
+                <div class="blog-date">1 Haziran 2025</div>
+                <h3>Siber Güvenlikte Yapay Zeka Kullanımı</h3>
+                <p class="blog-excerpt">
+                    Yapay zeka teknolojilerinin siber güvenlik alanındaki uygulamaları ve 
+                    gelecekteki potansiyeli. Machine learning ile anomali tespiti yaklaşımları.
+                </p>
+                <a href="#" class="read-more">
+                    Devamını Oku <i class="fas fa-arrow-right"></i>
+                </a>
+            </article>
+            
+            <article class="blog-card">
+                <div class="blog-date">28 Mayıs 2025</div>
+                <h3>Quantum Computing ve Kriptografi</h3>
+                <p class="blog-excerpt">
+                    Kuantum bilgisayarların mevcut kriptografik sistemler üzerindeki etkisi ve 
+                    post-quantum kriptografi çözümlerine geçiş sürecinde dikkat edilmesi gerekenler.
+                </p>
+                <a href="#" class="read-more">
+                    Devamını Oku <i class="fas fa-arrow-right"></i>
+                </a>
+            </article>
+            
+            <article class="blog-card">
+                <div class="blog-date">25 Mayıs 2025</div>
+                <h3>DevSecOps: Güvenliği Geliştirme Sürecine Entegre Etmek</h3>
+                <p class="blog-excerpt">
+                    Yazılım geliştirme süreçlerine güvenliği nasıl entegre edebiliriz? 
+                    CI/CD pipeline'larında güvenlik testleri ve otomatik vulnerability scanning.
+                </p>
+                <a href="#" class="read-more">
+                    Devamını Oku <i class="fas fa-arrow-right"></i>
+                </a>
+            </article>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section" id="contact">
+        <h2 class="section-title">İletişim</h2>
+        <div class="contact-content">
+            <div class="contact-info">
+                <h3>Benimle İletişime Geçin</h3>
+                <p style="color: var(--text-secondary); margin-bottom: 2rem;">
+                    Projeleriniz, iş birlikleri veya siber güvenlik konularında 
+                    danışmanlık hizmetleri için benimle iletişime geçebilirsiniz.
+                </p>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <div>
+                        <h4>Telefon</h4>
+                        <p>0507 088 91 01</p>
                     </div>
                 </div>
-                <div class="text-left space-y-2 glassmorphism p-4 rounded-lg">
-                    <p><strong>Ad:</strong> Deniz TURUL</p>
-                    <p><strong>Telefon:</strong> +90 507 088 91 01</p>
-                    <p><strong>Alanlar:</strong> Siber Güvenlik, Yazılım</p>
-                    <p><strong>WhatsApp:</strong> wa.me/905070889101</p>
+                
+
+                
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div>
+                        <h4>Lokasyon</h4>
+                        <p>Türkiye</p>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div>
+                        <h4>Çalışma Saatleri</h4>
+                        <p>7/24 Dijital Güvenlik</p>
+                    </div>
+                </div>
+            </div>
+            
+            <form class="contact-form" id="contactForm">
+                <h3 style="color: var(--primary-color); margin-bottom: 2rem;">Mesaj Gönder</h3>
+                
+                <div class="form-group">
+                    <label for="name">İsim</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">E-posta</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="subject">Konu</label>
+                    <input type="text" id="subject" name="subject" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="message">Mesaj</label>
+                    <textarea id="message" name="message" required></textarea>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-paper-plane"></i>
+                    Mesaj Gönder
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="social-links">
+                <a href="#" class="social-link" title="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+            </div>
+            
+            <p class="footer-text">
+                © 2025 Deniz TURUL. Tüm hakları saklıdır.
+            </p>
+            <p class="footer-text">
+                Designed & Coded by Deniz TURUL
+            </p>
+            
+            <div class="easter-egg" onclick="showEasterEgg()">
+                root@denizturul:~$ echo "Gizli komut keşfedildi!"
+            </div>
+        </div>
+    </footer>
+
+
+
+    <!-- WhatsApp Button -->
+    <a href="https://wa.me/905070889101" class="whatsapp-btn" target="_blank" title="WhatsApp ile İletişim">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Terminal Overlay -->
+    <div class="terminal-overlay" id="terminalOverlay">
+        <div class="terminal">
+            <div class="terminal-header">
+                <span class="terminal-title">Deniz TURUL - Cyber Terminal v2.5</span>
+                <button class="terminal-close" onclick="closeTerminal()">×</button>
+            </div>
+            <div class="terminal-body" id="terminalBody">
+                <div class="terminal-output" id="terminalOutput">
+Deniz TURUL Cyber Terminal v2.5
+Copyright (c) 2025 Deniz TURUL. All rights reserved.
+
+Hoş geldiniz! Kullanılabilir komutlar için 'help' yazın.
+
+                </div>
+                <div class="terminal-input-line">
+                    <span class="terminal-prompt">deniz@cyberterm:~$</span>
+                    <input type="text" class="terminal-input" id="terminalInput" autofocus>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        // Initialize Lucide icons
-        lucide.createIcons();
+        // Global variables
+        let currentTheme = localStorage.getItem('theme') || 'dark';
+        let terminalHistory = [];
+        let historyIndex = -1;
 
-        // Welcome animation
-        setTimeout(() => {
-            document.getElementById('welcome').style.display = 'none';
-        }, 3000);
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', function() {
+            // Hide loading screen
+            setTimeout(() => {
+                document.getElementById('loading').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('loading').style.display = 'none';
+                }, 500);
+            }, 1000);
 
-        // Update time and date
-        function updateTime() {
-            const now = new Date();
-            const timeStr = now.toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' });
-            const dateStr = now.toLocaleDateString('tr-TR', { day: '2-digit', month: '2-digit' });
+            // Set initial theme
+            setTheme(currentTheme);
             
-            document.getElementById('current-time').textContent = timeStr;
-            document.getElementById('current-date').textContent = dateStr;
+            // Initialize smooth scrolling
+            initSmoothScrolling();
+            
+            // Initialize navbar scroll effect
+            initNavbarScroll();
+            
+            // Initialize animations
+            initScrollAnimations();
+            
+            // Initialize project filters
+            initProjectFilters();
+            
+            // Initialize terminal
+            initTerminal();
+            
+            // Initialize contact form
+            initContactForm();
+            
+            // Initialize background animations
+            initCyberAnimations();
+            
+            // Initialize typewriter effect
+            initTypewriter();
+            
+
+        });
+
+        // Theme Management
+        function setTheme(theme) {
+            currentTheme = theme;
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+            
+            const themeIcon = document.querySelector('#themeToggle i');
+            if (theme === 'dark') {
+                themeIcon.className = 'fas fa-sun';
+            } else {
+                themeIcon.className = 'fas fa-moon';
+            }
         }
 
-        updateTime();
-        setInterval(updateTime, 1000);
+        document.getElementById('themeToggle').addEventListener('click', function() {
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            setTheme(newTheme);
+        });
 
-        // Modal functions
-        function openModal(modalId) {
-            document.getElementById(modalId + 'Modal').classList.add('active');
+        // Smooth Scrolling
+        function initSmoothScrolling() {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                        
+                        // Update active nav link
+                        updateActiveNavLink(this.getAttribute('href'));
+                    }
+                });
+            });
         }
 
-        function closeModal(modalId) {
-            document.getElementById(modalId + 'Modal').classList.remove('active');
+        // Navbar Scroll Effect
+        function initNavbarScroll() {
+            const navbar = document.getElementById('navbar');
+            
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 100) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+                
+                // Update active nav link based on scroll position
+                updateActiveNavLinkOnScroll();
+            });
         }
 
-        // WhatsApp function
-        function openWhatsApp() {
-            window.open('https://wa.me/905070889101', '_blank');
+        function updateActiveNavLink(href) {
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            document.querySelector(`a[href="${href}"]`)?.classList.add('active');
         }
 
-        // Contact form
-        function sendMessage(event) {
-            event.preventDefault();
-            alert('Mesajınız alındı! En kısa sürede dönüş yapılacaktır.');
-            document.getElementById('contactName').value = '';
-            document.getElementById('contactEmail').value = '';
-            document.getElementById('contactMessage').value = '';
+        function updateActiveNavLinkOnScroll() {
+            const sections = document.querySelectorAll('section[id]');
+            const scrollPos = window.scrollY + 200;
+            
+            sections.forEach(section => {
+                const top = section.offsetTop;
+                const height = section.offsetHeight;
+                const id = section.getAttribute('id');
+                
+                if (scrollPos >= top && scrollPos < top + height) {
+                    updateActiveNavLink(`#${id}`);
+                }
+            });
         }
 
-        // Close modal when clicking outside
-        document.querySelectorAll('.modal').forEach(modal => {
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal) {
-                    modal.classList.remove('active');
+        // Scroll Animations
+        function initScrollAnimations() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('fade-in-up');
+                    }
+                });
+            }, observerOptions);
+
+            // Observe all animatable elements
+            document.querySelectorAll('.skill-category, .project-card, .cert-card, .blog-card').forEach(el => {
+                observer.observe(el);
+            });
+        }
+
+        // Project Filters
+        function initProjectFilters() {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const projectCards = document.querySelectorAll('.project-card');
+
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const filter = this.getAttribute('data-filter');
+                    
+                    // Update active filter button
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Filter projects
+                    projectCards.forEach(card => {
+                        const category = card.getAttribute('data-category');
+                        if (filter === 'all' || category === filter) {
+                            card.style.display = 'block';
+                            setTimeout(() => {
+                                card.style.opacity = '1';
+                                card.style.transform = 'translateY(0)';
+                            }, 100);
+                        } else {
+                            card.style.opacity = '0';
+                            card.style.transform = 'translateY(20px)';
+                            setTimeout(() => {
+                                card.style.display = 'none';
+                            }, 300);
+                        }
+                    });
+                });
+            });
+        }
+
+        // Terminal Functions
+        function initTerminal() {
+            const terminalInput = document.getElementById('terminalInput');
+            
+            terminalInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    processCommand(this.value);
+                    this.value = '';
+                } else if (e.key === 'ArrowUp') {
+                    e.preventDefault();
+                    if (historyIndex < terminalHistory.length - 1) {
+                        historyIndex++;
+                        this.value = terminalHistory[terminalHistory.length - 1 - historyIndex] || '';
+                    }
+                } else if (e.key === 'ArrowDown') {
+                    e.preventDefault();
+                    if (historyIndex >= 0) {
+                        historyIndex--;
+                        this.value = historyIndex >= 0 ? terminalHistory[terminalHistory.length - 1 - historyIndex] : '';
+                    }
+                }
+            });
+        }
+
+        function openTerminal() {
+            document.getElementById('terminalOverlay').style.display = 'flex';
+            document.getElementById('terminalInput').focus();
+        }
+
+        function closeTerminal() {
+            document.getElementById('terminalOverlay').style.display = 'none';
+        }
+
+        function processCommand(command) {
+            if (command.trim() === '') return;
+            
+            // Add to history
+            terminalHistory.push(command);
+            historyIndex = -1;
+            
+            // Display command
+            addToTerminal(`deniz@cyberterm:~$ ${command}`);
+            
+            // Process command
+            const cmd = command.toLowerCase().trim();
+            let output = '';
+            
+            switch(cmd) {
+                case 'help':
+                    output = `Kullanılabilir komutlar:
+help        - Bu yardım menüsünü gösterir
+whoami      - Kullanıcı bilgilerini gösterir
+skills      - Yeteneklerimi listeler
+projects    - Projelerimi gösterir
+certifications - Sertifikalarımı listeler
+contact     - İletişim bilgilerimi gösterir
+social      - Sosyal medya hesaplarımı gösterir
+clear       - Terminal ekranını temizler
+neofetch    - Sistem bilgilerini gösterir
+hack        - 😏 Gizli komut
+matrix      - Matrix efekti (Easter egg)
+exit        - Terminali kapat`;
+                    break;
+                
+                case 'whoami':
+                    output = `Deniz TURUL
+Siber Güvenlik Uzmanı & Yazılım Mühendisi
+"Yazılım sadece kod değildir, güvenlik onun ruhudur."
+
+Uzmanlık Alanları:
+- Siber Güvenlik & Penetrasyon Testleri
+- Yazılım Geliştirme (Python, C++, React)
+- Adli Bilişim & OSINT
+- DevOps & Sistem Yönetimi`;
+                    break;
+                
+                case 'skills':
+                    output = `=== YETENEKLER ===
+
+🔒 Siber Güvenlik:
+   - OSINT, Reverse Engineering, PenTest
+   - Network Hardening, Vulnerability Assessment
+   
+💻 Yazılım Geliştirme:
+   - Python, C++, React, SQL, Flask, Django
+   
+🔍 Adli Bilişim:
+   - Digital Forensics, Packet Analysis
+   - Metadata Analysis, Log Analysis
+   
+☁️ DevOps & Sistem:
+   - Linux, Docker, CI/CD, GitOps, Cloud Security`;
+                    break;
+                
+                case 'projects':
+                    output = `=== PROJELER ===
+
+1. SEALinux OS
+   └── Güvenlik odaklı Linux dağıtımı
+   
+2. SEASpy: Kamera Güvenlik Testi
+   └── IP kamera güvenlik tarama aracı
+   
+3. Otel Navigasyon Sistemi
+   └── Interaktif navigasyon çözümü
+   
+4. CyberSec Terminal
+   └── Siber güvenlik araçları koleksiyonu
+   
+5. Takip: Fotoğraf Analiz Sistemi
+   └── Metadata ve fotoğraf analiz aracı
+
+Detaylar için: projects --detail [proje_adı]`;
+                    break;
+                
+                case 'certifications':
+                    output = `=== SERTİFİKALAR ===
+
+✅ CEH (Certified Ethical Hacker) - EC-Council
+✅ OSCP (Offensive Security Certified Professional)
+✅ Ağ Güvenliği Uzmanı - BTK Akademi
+✅ Log Analizi Uzmanı - BTK Akademi
+✅ Cloud Security Architecture - Coursera
+✅ Advanced Malware Analysis - Udemy`;
+                    break;
+                
+                case 'contact':
+                    output = `=== İLETİŞİM BİLGİLERİ ===
+
+📞 Telefon: 0507 088 91 01
+📍 Lokasyon: Türkiye
+🕒 Çalışma Saatleri: 7/24 Dijital Güvenlik
+
+WhatsApp: https://wa.me/905070889101`;
+                    break;
+                
+                case 'social':
+                    output = `=== SOSYAL MEDYA HESAPLARI ===
+
+🐱 GitHub: /denizturul`;
+                    break;
+                
+                case 'clear':
+                    document.getElementById('terminalOutput').innerHTML = '';
+                    return;
+                
+                case 'neofetch':
+                    output = `                    ..                    deniz@cyberterm
+                 .:::.                   ――――――――――――――――――
+               .::::::.                  OS: SEALinux 2025
+             .::::::::::                 Host: CyberSec Workstation
+           .:::::::::::::                Kernel: Linux 6.8.0-security
+         .:::::::::::::::                Uptime: ∞ (Always Online)
+        :::::::::::::::                  Packages: 2847 (apt)
+       ::::::::::::::::                  Shell: zsh 5.9
+      :::::::::::::::::                  Resolution: 4K Security
+     ::::::::::::::::::                  Theme: Dark Hacker [GTK3]
+    :::::::::::::::::::                  Icons: CyberIcons
+   ::::::::::::::::::::                  Terminal: gnome-terminal
+  :::::::::::::::::::::                  CPU: Intel i7-12700K
+ ::::::::::::::::::::::                  GPU: NVIDIA RTX 4080
+:::::::::::::::::::::::                  Memory: 32GB DDR5`;
+                    break;
+                
+                case 'hack':
+                    output = `🔐 HACKING INITIATED...
+                    
+[●●●●●●●●●●] 100%
+
+ACCESS GRANTED!
+Welcome to the Matrix, Neo... 
+Just kidding! 😄
+
+Bu sadece bir easter egg. Gerçek hacking için:
+1. Önce etik hacking eğitimi alın
+2. Yasal izinler olmadan test yapmayın  
+3. Güvenliği artırmak için kullanın
+
+"Güç büyük sorumluluk getirir." - Spider-Man`;
+                    break;
+                
+                case 'matrix':
+                    startMatrixEffect();
+                    return;
+                
+                case 'exit':
+                    closeTerminal();
+                    return;
+                
+                default:
+                    output = `bash: ${command}: komut bulunamadı
+Kullanılabilir komutlar için 'help' yazın.`;
+            }
+            
+            addToTerminal(output);
+        }
+
+        function addToTerminal(text) {
+            const output = document.getElementById('terminalOutput');
+            output.innerHTML += text + '\n\n';
+            
+            // Scroll to bottom
+            const terminalBody = document.getElementById('terminalBody');
+            terminalBody.scrollTop = terminalBody.scrollHeight;
+        }
+
+        function startMatrixEffect() {
+            const output = document.getElementById('terminalOutput');
+            const matrixChars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            let matrixInterval;
+            let lines = 0;
+            
+            addToTerminal('🌐 MATRIX MODE ACTIVATED...\n');
+            
+            matrixInterval = setInterval(() => {
+                let line = '';
+                for (let i = 0; i < 50; i++) {
+                    line += matrixChars[Math.floor(Math.random() * matrixChars.length)];
+                }
+                addToTerminal(`\x1b[32m${line}\x1b[0m`);
+                lines++;
+                
+                if (lines > 10) {
+                    clearInterval(matrixInterval);
+                    setTimeout(() => {
+                        addToTerminal('\n🔴 RED PILL TAKEN - EXITING MATRIX...\n');
+                    }, 1000);
+                }
+            }, 100);
+        }
+
+        // Contact Form
+        function initContactForm() {
+            const form = document.getElementById('contactForm');
+            
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Get form data
+                const formData = new FormData(form);
+                const data = Object.fromEntries(formData);
+                
+                // Simulate form submission
+                const submitBtn = form.querySelector('button[type="submit"]');
+                const originalText = submitBtn.innerHTML;
+                
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Gönderiliyor...';
+                submitBtn.disabled = true;
+                
+                setTimeout(() => {
+                    alert('Mesajınız başarıyla gönderildi! En kısa sürede size dönüş yapacağım.');
+                    form.reset();
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                }, 2000);
+            });
+        }
+
+        // Cyber Animations
+        function initCyberAnimations() {
+            createCyberParticles();
+            createCyberLines();
+            initMouseTracker();
+            createMatrixRain();
+            createCodeFragments();
+        }
+
+        function createCyberParticles() {
+            const container = document.getElementById('cyberParticles');
+            const particleCount = 50;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = (3 + Math.random() * 6) + 's';
+                container.appendChild(particle);
+            }
+        }
+
+        function createCyberLines() {
+            const container = document.getElementById('cyberLines');
+            
+            setInterval(() => {
+                const line = document.createElement('div');
+                line.className = 'cyber-line';
+                line.style.top = Math.random() * 100 + '%';
+                line.style.width = '100%';
+                line.style.animationDuration = (4 + Math.random() * 4) + 's';
+                container.appendChild(line);
+
+                setTimeout(() => {
+                    line.remove();
+                }, 8000);
+            }, 2000);
+        }
+
+        function initMouseTracker() {
+            const particles = [];
+            let mouseX = 0, mouseY = 0;
+
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+
+                // Create trailing particle effect
+                if (Math.random() < 0.3) {
+                    createTrailParticle(mouseX, mouseY);
+                }
+            });
+
+            function createTrailParticle(x, y) {
+                const particle = document.createElement('div');
+                particle.style.position = 'fixed';
+                particle.style.left = x + 'px';
+                particle.style.top = y + 'px';
+                particle.style.width = '4px';
+                particle.style.height = '4px';
+                particle.style.background = 'var(--primary-color)';
+                particle.style.borderRadius = '50%';
+                particle.style.pointerEvents = 'none';
+                particle.style.zIndex = '999';
+                particle.style.opacity = '0.7';
+                document.body.appendChild(particle);
+
+                // Animate and remove
+                setTimeout(() => {
+                    particle.style.transition = 'all 1s ease-out';
+                    particle.style.opacity = '0';
+                    particle.style.transform = 'scale(0)';
+                    setTimeout(() => particle.remove(), 1000);
+                }, 50);
+            }
+        }
+
+        function createMatrixRain() {
+            const container = document.getElementById('matrixRain');
+            const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+            
+            function createColumn() {
+                const column = document.createElement('div');
+                column.className = 'matrix-column';
+                column.style.left = Math.random() * 100 + '%';
+                column.style.animationDuration = (5 + Math.random() * 10) + 's';
+                
+                let text = '';
+                for (let i = 0; i < 20; i++) {
+                    text += chars[Math.floor(Math.random() * chars.length)] + '<br>';
+                }
+                column.innerHTML = text;
+                
+                container.appendChild(column);
+                
+                setTimeout(() => {
+                    column.remove();
+                }, 15000);
+            }
+            
+            setInterval(createColumn, 300);
+        }
+
+        function createCodeFragments() {
+            const container = document.getElementById('codeFragments');
+            const codeSnippets = [
+                'if (security == null) { panic(); }',
+                'SELECT * FROM vulnerabilities;',
+                'grep -r "password" /var/log/',
+                'nmap -sS -O target_ip',
+                'def exploit(payload): return shell',
+                'sudo iptables -A INPUT -j DROP',
+                'openssl req -x509 -newkey rsa:4096',
+                'curl -X POST api/auth/login',
+                'python3 -c "import socket"',
+                'nc -lvp 4444',
+                'hashcat -m 0 hashes.txt wordlist',
+                'while true; do echo "pwned"; done',
+                'ssh -L 8080:localhost:80 user@host',
+                'netstat -tulpn | grep LISTEN',
+                'find / -perm -4000 2>/dev/null'
+            ];
+            
+            function createFragment() {
+                const fragment = document.createElement('div');
+                fragment.className = 'code-fragment';
+                fragment.textContent = codeSnippets[Math.floor(Math.random() * codeSnippets.length)];
+                fragment.style.left = Math.random() * 100 + '%';
+                fragment.style.animationDelay = Math.random() * 5 + 's';
+                
+                container.appendChild(fragment);
+                
+                setTimeout(() => {
+                    fragment.remove();
+                }, 15000);
+            }
+            
+            setInterval(createFragment, 2000);
+        }
+
+        // Typewriter Effect
+        function initTypewriter() {
+            const quote = "Yazılım sadece kod değildir, güvenlik onun ruhudur.";
+            
+            let currentCharIndex = 0;
+            let isDeleting = false;
+            const typewriterElement = document.getElementById('typewriter');
+            
+            // Check if element exists before proceeding
+            if (!typewriterElement) {
+                console.warn('Typewriter element not found');
+                return;
+            }
+            
+            function typeEffect() {
+                if (isDeleting) {
+                    typewriterElement.textContent = quote.substring(0, currentCharIndex - 1);
+                    currentCharIndex--;
+                } else {
+                    typewriterElement.textContent = quote.substring(0, currentCharIndex + 1);
+                    currentCharIndex++;
+                }
+                
+                let typeSpeed = isDeleting ? 30 : 80;
+                
+                if (!isDeleting && currentCharIndex === quote.length) {
+                    typeSpeed = 3000; // Long pause at end
+                    isDeleting = true;
+                } else if (isDeleting && currentCharIndex === 0) {
+                    isDeleting = false;
+                    typeSpeed = 1000; // Pause before restart
+                }
+                
+                setTimeout(typeEffect, typeSpeed);
+            }
+            
+            typeEffect();
+        }
+
+
+
+        // Easter Egg
+        function showEasterEgg() {
+            const messages = [
+                "🎮 Gizli terminal oyunu keşfedildi! Terminal'de 'hack' yazın.",
+                "🔍 OSINT Master: Her pikselin bir hikayesi vardır...",
+                "🛡️ Firewall Status: ACTIVE - Tüm sistemler güvende!",
+                "💀 Reverse Engineering: Kodu çöz, sırları keşfet!",
+                "🌐 Matrix moduna geçmek için terminal'de 'matrix' yazın!"
+            ];
+            
+            const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+            alert(randomMessage);
+        }
+
+        // Terminal toggle from navbar
+        document.getElementById('terminalToggle').addEventListener('click', openTerminal);
+
+        // Service Worker for offline support
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                const swScript = `
+                    const CACHE_NAME = 'deniz-turul-portfolio-v1';
+                    const urlsToCache = [
+                        '/',
+                        '/index.html'
+                    ];
+
+                    self.addEventListener('install', function(event) {
+                        event.waitUntil(
+                            caches.open(CACHE_NAME)
+                                .then(function(cache) {
+                                    return cache.addAll(urlsToCache);
+                                })
+                        );
+                    });
+
+                    self.addEventListener('fetch', function(event) {
+                        event.respondWith(
+                            caches.match(event.request)
+                                .then(function(response) {
+                                    if (response) {
+                                        return response;
+                                    }
+                                    return fetch(event.request);
+                                })
+                        );
+                    });
+                `;
+                
+                const blob = new Blob([swScript], { type: 'application/javascript' });
+                const swUrl = URL.createObjectURL(blob);
+                
+                navigator.serviceWorker.register(swUrl)
+                    .then(function(registration) {
+                        console.log('SW registered: ', registration);
+                    })
+                    .catch(function(registrationError) {
+                        console.log('SW registration failed: ', registrationError);
+                    });
+            });
+        }
+
+        // Performance optimization - Lazy loading for images
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.src = img.dataset.src;
+                    img.classList.remove('lazy');
+                    observer.unobserve(img);
                 }
             });
         });
+
+        document.querySelectorAll('img[data-src]').forEach(img => {
+            imageObserver.observe(img);
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            // Ctrl + K to open terminal
+            if (e.ctrlKey && e.key === 'k') {
+                e.preventDefault();
+                openTerminal();
+            }
+            
+            // Escape to close terminal
+            if (e.key === 'Escape') {
+                closeTerminal();
+            }
+            
+            // Ctrl + Shift + L to toggle theme
+            if (e.ctrlKey && e.shiftKey && e.key === 'L') {
+                e.preventDefault();
+                document.getElementById('themeToggle').click();
+            }
+        });
+
+        // Add typing effect to hero text
+        function typeWriter(element, text, speed = 50) {
+            let i = 0;
+            element.innerHTML = '';
+            
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                }
+            }
+            
+            type();
+        }
+
+        // Initialize typing effect for hero section
+        setTimeout(() => {
+            const heroQuote = document.querySelector('.hero .quote');
+            if (heroQuote && heroQuote.textContent) {
+                const originalText = heroQuote.textContent;
+                typeWriter(heroQuote, originalText, 30);
+            }
+        }, 2000);
+
+        // Add parallax effect to background
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const parallax = document.querySelector('.bg-grid');
+            const speed = scrolled * 0.2;
+            
+            parallax.style.transform = `translate(${speed}px, ${speed}px)`;
+        });
+
+        // Add glitch effect to logo on hover
+        document.querySelector('.logo').addEventListener('mouseenter', function() {
+            this.style.animation = 'glitch 0.3s ease-in-out';
+            setTimeout(() => {
+                this.style.animation = '';
+            }, 300);
+        });
+
+        // Add CSS for glitch animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes glitch {
+                0% { transform: translate(0); }
+                20% { transform: translate(-2px, 2px); }
+                40% { transform: translate(-2px, -2px); }
+                60% { transform: translate(2px, 2px); }
+                80% { transform: translate(2px, -2px); }
+                100% { transform: translate(0); }
+            }
+        `;
+        document.head.append(style);
     </script>
 </body>
 </html>
